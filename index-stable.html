@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BitKill // music</title>
+  <link rel="icon" type="image/png" href="https://media.xperia.pt/bitkill/img/favicon.jpg" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --glitch-color1: #0ff;
+      --glitch-color2: #f0f;
+      --glitch-color3: #0f0;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Share Tech Mono', monospace;
+      background: black;
+      color: var(--glitch-color1);
+      overflow-x: hidden;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%230ff" stroke-width="2"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>'), auto;
+    }
+    
+    /* CRT Effect */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+      background-size: 100% 4px;
+      z-index: 1000;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+    
+    /* Glitchy Scrolling Text */
+    .scroll-text {
+      position: fixed;
+      white-space: nowrap;
+      color: var(--glitch-color1);
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      z-index: 100;
+      width: 100%;
+      overflow: hidden;
+      text-shadow: 0 0 5px var(--glitch-color1);
+    }
+    
+    .scroll-top {
+      top: 10px;
+    }
+    
+    .scroll-bottom {
+      bottom: 10px;
+    }
+    
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem 2rem;
+      position: relative;
+    }
+    
+    header img {
+      width: 120px;
+      height: 120px;
+      filter: drop-shadow(0 0 15px var(--glitch-color1));
+      animation: logo-pulse 4s infinite alternate;
+    }
+    
+    @keyframes logo-pulse {
+      0% { filter: drop-shadow(0 0 5px var(--glitch-color1)); }
+      50% { filter: drop-shadow(0 0 20px var(--glitch-color2)); }
+      100% { filter: drop-shadow(0 0 15px var(--glitch-color3)); }
+    }
+    
+    .glitch-title {
+      font-size: 3rem;
+      position: relative;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      margin: 0 auto;
+      color: var(--glitch-color1);
+      animation: glitch 2s infinite;
+      text-align: center;
+    }
+    
+    @keyframes glitch {
+      0% { text-shadow: 0.05em 0 0 var(--glitch-color2), -0.05em -0.025em 0 var(--glitch-color3); }
+      14% { text-shadow: 0.05em 0 0 var(--glitch-color2), -0.05em -0.025em 0 var(--glitch-color3); }
+      15% { text-shadow: -0.05em -0.025em 0 var(--glitch-color2), 0.025em 0.025em 0 var(--glitch-color3); }
+      49% { text-shadow: -0.05em -0.025em 0 var(--glitch-color2), 0.025em 0.025em 0 var(--glitch-color3); }
+      50% { text-shadow: 0.025em 0.05em 0 var(--glitch-color2), 0.05em 0 0 var(--glitch-color3); }
+      99% { text-shadow: 0.025em 0.05em 0 var(--glitch-color2), 0.05em 0 0 var(--glitch-color3); }
+      100% { text-shadow: -0.025em 0 0 var(--glitch-color2), -0.025em -0.025em 0 var(--glitch-color3); }
+    }
+    
+    /* CRT Frame */
+    .crt-frame {
+      position: relative;
+      border: 4px solid var(--glitch-color1);
+      margin: 3rem auto;
+      width: 90%;
+      max-width: 800px;
+      aspect-ratio: 16/9;
+      box-shadow: 0 0 20px var(--glitch-color1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .crt-frame:hover {
+      border-color: var(--glitch-color2);
+      box-shadow: 0 0 30px var(--glitch-color2), 0 0 50px rgba(255, 0, 255, 0.3);
+      transform: scale(1.02);
+    }
+    
+    .crt-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .crt-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background: url('https://static.vecteezy.com/system/resources/previews/008/470/102/original/tv-noise-static-screen-overlay-free-png.png') center/cover repeat;
+      mix-blend-mode: overlay;
+      opacity: 0.3;
+    }
+    
+    .crt-scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
+      background-size: 100% 4px;
+      animation: scanline 10s linear infinite;
+    }
+    
+    @keyframes scanline {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 100%; }
+    }
+    
+    .topics {
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 3rem 0;
+      text-shadow: 0 0 10px var(--glitch-color1);
+      animation: color-cycle 8s infinite;
+    }
+    
+    @keyframes color-cycle {
+      0% { color: var(--glitch-color1); text-shadow: 0 0 10px var(--glitch-color1), 0 0 20px var(--glitch-color1); }
+      25% { color: var(--glitch-color2); text-shadow: 0 0 10px var(--glitch-color2), 0 0 20px var(--glitch-color2); }
+      50% { color: var(--glitch-color3); text-shadow: 0 0 10px var(--glitch-color3), 0 0 20px var(--glitch-color3); }
+      75% { color: var(--glitch-color2); text-shadow: 0 0 10px var(--glitch-color2), 0 0 20px var(--glitch-color2); }
+      100% { color: var(--glitch-color1); text-shadow: 0 0 10px var(--glitch-color1), 0 0 20px var(--glitch-color1); }
+    }
+    
+    canvas#audio-vis {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    
+    /* Interactive Elements */
+    .interactive-btn {
+      background: transparent;
+      border: 2px solid var(--glitch-color1);
+      color: var(--glitch-color1);
+      font-family: 'Share Tech Mono', monospace;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      margin: 10px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    .interactive-btn:hover {
+      background: var(--glitch-color1);
+      color: black;
+      box-shadow: 0 0 15px var(--glitch-color1);
+    }
+    
+    .interactive-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
+      transition: 0.5s;
+    }
+    
+    .interactive-btn:hover::before {
+      left: 100%;
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+    
+    .audio-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    
+    .volume-slider {
+      -webkit-appearance: none;
+      width: 100px;
+      height: 5px;
+      background: var(--glitch-color1);
+      outline: none;
+      margin: 0 10px;
+    }
+    
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background: var(--glitch-color1);
+      cursor: pointer;
+      border-radius: 0;
+    }
+    
+    .terminal {
+      margin: 2rem auto;
+      width: 90%;
+      max-width: 800px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--glitch-color1);
+      padding: 1rem;
+      min-height: 150px;
+      color: var(--glitch-color1);
+      text-shadow: 0 0 5px var(--glitch-color1);
+      box-shadow: 0 0 15px var(--glitch-color1);
+    }
+    
+    .terminal-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 20px;
+      background: var(--glitch-color1);
+      animation: blink 1s infinite;
+      vertical-align: middle;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="audio-vis"></canvas>
+  
+  <div class="scroll-text scroll-top" id="scroll-top">
+    SYSTEM BREACH DETECTED // NEURAL INTERFACE ACTIVE // DATA STREAM CORRUPTED // BITKILL PROTOCOL INITIATED // CYBERNETIC ENHANCEMENT REQUIRED //
+  </div>
+  
+  <div class="scroll-text scroll-bottom" id="scroll-bottom">
+    #ELECTRONICMUSIC // #CYBERCORE // #WEBCORE // #GLITCHCORE // #FRUTIGERAERO // #CYBERPUNK // SYSTEM OVERLOAD // DIGITAL DECAY // ENTER THE VOID //
+  </div>
+
+  <header>
+
+    <h1 class="glitch-title" data-aos="fade-down">BitKill</h1>
+  </header>
+
+  <section class="topics" data-aos="fade-up">
+    Welcome to the BitKill Experience
+  </section>
+
+  <section class="controls">
+    <button class="interactive-btn" id="glitch-btn">GLITCH MODE</button>
+    <button class="interactive-btn" id="play-audio">PLAY AUDIO</button>
+    <button class="interactive-btn" id="stop-audio">STOP AUDIO</button>
+    <div class="audio-controls">
+      <span>VOL</span>
+      <input type="range" min="0" max="1" step="0.1" value="0.5" class="volume-slider" id="volume">
+    </div>
+  </section>
+
+  <div class="terminal" data-aos="fade-up">
+    <div id="terminal-text"></div>
+    <span class="terminal-cursor"></span>
+  </div>
+
+  <!-- CRT Video Wall with BitKill VODs -->
+  <section>
+    <div class="crt-frame" data-aos="zoom-in" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.8">
+      <video class="crt-video" autoplay muted loop>
+        <source src="https://media.xperia.pt/bitkill/vod/vod1.mp4" type="video/mp4" />
+      </video>
+      <div class="crt-overlay"></div>
+      <div class="crt-scanline"></div>
+    </div>
+    <div class="crt-frame" data-aos="zoom-in" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.8">
+      <video class="crt-video" autoplay muted loop>
+        <source src="https://media.xperia.pt/bitkill/vod/vod2.mp4" type="video/mp4" />
+      </video>
+      <div class="crt-overlay"></div>
+      <div class="crt-scanline"></div>
+    </div>
+    <div class="crt-frame" data-aos="zoom-in" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.8">
+      <video class="crt-video" autoplay muted loop>
+        <source src="https://media.xperia.pt/bitkill/vod/vod3.mp4" type="video/mp4" />
+      </video>
+      <div class="crt-overlay"></div>
+      <div class="crt-scanline"></div>
+    </div>
+    <div class="crt-frame" data-aos="zoom-in" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.8">
+      <video class="crt-video" autoplay muted loop>
+        <source src="https://media.xperia.pt/bitkill/vod/vod4.mp4" type="video/mp4" />
+      </video>
+      <div class="crt-overlay"></div>
+      <div class="crt-scanline"></div>
+    </div>
+  </section>
+
+  <!-- Sound activation button -->
+  <div id="sound-toggle" class="sound-toggle">
+    <div class="sound-icon">
+      <div class="sound-wave"></div>
+      <div class="sound-wave"></div>
+      <div class="sound-wave"></div>
+    </div>
+    <div class="sound-label">ACTIVATE SOUND</div>
+  </div>
+
+  <style>
+    .sound-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid var(--glitch-color1);
+      padding: 10px 15px;
+      border-radius: 2px;
+      cursor: pointer;
+      box-shadow: 0 0 15px var(--glitch-color1);
+      transition: all 0.3s;
+      animation: pulse 2s infinite alternate;
+    }
+
+    .sound-toggle:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px var(--glitch-color2);
+      border-color: var(--glitch-color2);
+    }
+
+    .sound-toggle.active {
+      border-color: var(--glitch-color3);
+      box-shadow: 0 0 15px var(--glitch-color3);
+    }
+
+    .sound-icon {
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+      position: relative;
+      width: 20px;
+      height: 20px;
+    }
+
+    .sound-wave {
+      position: absolute;
+      background: var(--glitch-color1);
+      width: 3px;
+      height: 100%;
+      left: 0;
+      animation: sound-wave 1.5s infinite;
+    }
+
+    .sound-wave:nth-child(2) {
+      left: 8px;
+      animation-delay: 0.2s;
+    }
+
+    .sound-wave:nth-child(3) {
+      left: 16px;
+      animation-delay: 0.4s;
+    }
+
+    .sound-toggle.active .sound-wave {
+      background: var(--glitch-color3);
+    }
+
+    .sound-label {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--glitch-color1);
+      font-size: 0.9rem;
+      text-shadow: 0 0 5px var(--glitch-color1);
+      letter-spacing: 1px;
+    }
+
+    .sound-toggle.active .sound-label {
+      color: var(--glitch-color3);
+      text-shadow: 0 0 5px var(--glitch-color3);
+    }
+
+    @keyframes sound-wave {
+      0% { height: 20%; }
+      50% { height: 100%; }
+      100% { height: 20%; }
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+  </style>
+
+  <script>
+    // Sound activation button functionality
+    let audioPlayer = null;
+    
+    document.getElementById('sound-toggle').addEventListener('click', function() {
+      this.classList.toggle('active');
+      const label = this.querySelector('.sound-label');
+      
+      if (this.classList.contains('active')) {
+        // Start background audio
+        if (!audioPlayer) {
+          audioPlayer = new Audio('https://media.xperia.pt/bitkill/mp3/demo1.mp3');
+          audioPlayer.loop = true;
+          audioPlayer.volume = 0.5; // Start at half volume
+        }
+        
+        audioPlayer.play().then(() => {
+          label.textContent = 'SOUND ACTIVE';
+          this.style.animation = 'glitch 0.3s ease';
+          setTimeout(() => {
+            this.style.animation = 'pulse 2s infinite alternate';
+          }, 300);
+        }).catch(error => {
+          console.error('Audio playback failed:', error);
+          this.classList.remove('active');
+        });
+      } else {
+        // Stop background audio
+        if (audioPlayer) {
+          audioPlayer.pause();
+        }
+        label.textContent = 'ACTIVATE SOUND';
+      }
+    });
+    
+    // Allow volume adjustment with the volume slider
+    document.getElementById('volume').addEventListener('input', function() {
+      if (audioPlayer) {
+        audioPlayer.volume = this.value;
+      }
+    });
+    
+    // Connect play/stop buttons to the background audio
+    document.getElementById('play-audio').addEventListener('click', function() {
+      const soundToggle = document.getElementById('sound-toggle');
+      if (!soundToggle.classList.contains('active')) {
+        soundToggle.click(); // Activate sound if it's not active
+      } else if (audioPlayer && audioPlayer.paused) {
+        audioPlayer.play();
+      }
+    });
+    
+    document.getElementById('stop-audio').addEventListener('click', function() {
+      if (audioPlayer && !audioPlayer.paused) {
+        audioPlayer.pause();
+        const soundToggle = document.getElementById('sound-toggle');
+        soundToggle.classList.remove('active');
+        soundToggle.querySelector('.sound-label').textContent = 'ACTIVATE SOUND';
+      }
+    });
+  </script>
+
+  <section class="music-demos" data-aos="fade-up"></section>
+    <h3 style="text-align: center; font-size: 2rem; margin: 2rem 0; color: var(--glitch-color1); text-shadow: 0 0 10px var(--glitch-color1); text-transform: uppercase; letter-spacing: 3px;">MUSIC DEMOS</h3>
+    <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0cj2YzzjFGiIjKwauHAWYm?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <div class="crt-overlay"></div>
+      <div class="crt-scanline"></div>
+    </div>
+    
+    <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0OTTKPvVTvUlE9umTfxx9v?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <div class="crt-overlay"></div>
+      <div class="crt-scanline"></div>
+    </div>
+    
+    <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5P73XBhsBYmWllPk2JCdI9?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <div class="crt-overlay"></div>
+      <div class="crt-scanline"></div>
+    </div>
+    
+    <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3JdCKLjjYkblDl0fBI3koy?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <div class="crt-overlay"></div>
+      <div class="crt-scanline"></div>
+    </div>
+
+    <style>
+      .music-demos {
+        margin: 4rem auto;
+        width: 90%;
+        max-width: 800px;
+        text-align: center;
+      }
+      
+      .spotify-frame {
+        margin: 1.5rem auto;
+        aspect-ratio: auto;
+        height: auto;
+        position: relative;
+        overflow: visible;
+      }
+      
+      .spotify-frame:before {
+        content: "// ENCRYPTED AUDIO STREAM";
+        position: absolute;
+        top: -25px;
+        left: 10px;
+        font-size: 0.8rem;
+        color: var(--glitch-color1);
+        text-shadow: 0 0 5px var(--glitch-color1);
+      }
+      
+      .spotify-frame:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 1px solid var(--glitch-color1);
+        pointer-events: none;
+        animation: glitch-border 2s infinite;
+      }
+      
+      @keyframes glitch-border {
+        0% { clip-path: inset(0 0 0 0); }
+        5% { clip-path: inset(30% 0 0 0); }
+        10% { clip-path: inset(0 10% 0 0); }
+        15% { clip-path: inset(0 0 10% 0); }
+        20% { clip-path: inset(0 0 0 30%); }
+        25% { clip-path: inset(0 0 0 0); }
+        100% { clip-path: inset(0 0 0 0); }
+      }
+    </style>
+  </section>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: false,
+      mirror: true
+    });
+
+    // Initialize Vanilla Tilt
+    VanillaTilt.init(document.querySelectorAll(".crt-frame"), {
+      max: 10,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.5,
+    });
+
+    // Scrolling Text Animation
+    const scrollTopText = document.getElementById('scroll-top');
+    const scrollBottomText = document.getElementById('scroll-bottom');
+    
+    function animateScrollText() {
+      gsap.to(scrollTopText, {
+        x: '-50%',
+        duration: 20,
+        repeat: -1,
+        ease: 'linear'
+      });
+      
+      gsap.to(scrollBottomText, {
+        x: '50%',
+        duration: 20,
+        repeat: -1,
+        ease: 'linear'
+      });
+    }
+    
+    animateScrollText();
+
+    // Simple Canvas Audio Visualizer
+    const canvas = document.getElementById('audio-vis');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const analyser = audioCtx.createAnalyser();
+    const gainNode = audioCtx.createGain();
+    let source;
+    let isPlaying = false;
+
+    // Audio controls
+    const playBtn = document.getElementById('play-audio');
+    const stopBtn = document.getElementById('stop-audio');
+    const volumeSlider = document.getElementById('volume');
+
+    playBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        startAudio();
+      }
+    });
+
+    stopBtn.addEventListener('click', () => {
+      if (isPlaying && source) {
+        source.stop();
+        isPlaying = false;
+      }
+    });
+
+    volumeSlider.addEventListener('input', () => {
+      gainNode.gain.value = volumeSlider.value;
+    });
+
+    function startAudio() {
+      if (isPlaying) return;
+      
+      audioCtx.resume().then(() => {
+        source = audioCtx.createBufferSource();
+        
+        fetch('https://media.xperia.pt/bitkill/mp3/demo1.mp3')
+          .then(res => res.arrayBuffer())
+          .then(buffer => audioCtx.decodeAudioData(buffer))
+          .then(decoded => {
+            source.buffer = decoded;
+            source.connect(analyser);
+            analyser.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            gainNode.gain.value = volumeSlider.value;
+            source.start(0);
+            isPlaying = true;
+            source.onended = () => {
+              isPlaying = false;
+            };
+            animate();
+          });
+      });
+    }
+
+    analyser.fftSize = 512;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function animate() {
+      if (!isPlaying) return;
+      
+      requestAnimationFrame(animate);
+      analyser.getByteFrequencyData(dataArray);
+      
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      const barWidth = canvas.width / bufferLength;
+      
+      for (let i = 0; i < bufferLength; i++) {
+        const y = dataArray[i] * 2;
+        const x = i * barWidth;
+        
+        // Create mirror effect
+        ctx.fillStyle = `hsl(${i / bufferLength * 360}, 100%, 50%)`;
+        
+        // Bottom bars
+        ctx.fillRect(x, canvas.height - y, barWidth, y);
+        
+        // Top bars (mirrored)
+        ctx.fillRect(x, 0, barWidth, y / 2);
+        
+        // Center line
+        if (i % 2 === 0 && dataArray[i] > 50) {
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(x, canvas.height / 2 - dataArray[i] / 20, barWidth * 2, dataArray[i] / 10);
+        }
+      }
+      
+      // Draw circular visualizer
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = 100;
+      
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = '#0ff';
+      ctx.stroke();
+      
+      for (let i = 0; i < bufferLength; i++) {
+        const amplitude = dataArray[i] / 128.0;
+        const angle = i * 2 * Math.PI / bufferLength;
+        const x = centerX + Math.cos(angle) * (radius * amplitude);
+        const y = centerY + Math.sin(angle) * (radius * amplitude);
+        
+        if (i === 0) {
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+        
+        // Add some random glitch points
+        if (Math.random() > 0.98) {
+          ctx.lineTo(x + (Math.random() * 20 - 10), y + (Math.random() * 20 - 10));
+        }
+      }
+      
+      ctx.closePath();
+      ctx.strokeStyle = 'rgba(0, 255, 255, 0.5)';
+      ctx.stroke();
+    }
+
+    // Terminal typing effect with Mr. Robot-inspired realistic terminal output
+    const terminalText = document.getElementById('terminal-text');
+    const terminalLines = [
+      '> ssh -l fsociety@192.168.1.43',
+      '> Password: **********',
+      '> Access granted. Welcome to the BitKill mainframe.',
+      '> cat /etc/shadow',
+      '> Permission denied. Attempting privilege escalation...',
+      '> sudo ./exploit.sh',
+      '> Kernel vulnerability detected (CVE-2023-4567)',
+      '> Executing memory overflow...',
+      '> Root shell established',
+      '> Scanning network for vulnerable nodes...',
+      '> WARNING: Intrusion detection triggered',
+      '> Deploying countermeasures...',
+      '> Connection rerouted through proxy chain',
+      '> 7 active nodes found. Initiating data extraction...',
+      '> Downloading encrypted payloads [████████████] 100%',
+      '> Decryption sequence initialized...',
+      '> Remember: Control is an illusion.'
+    ];
+
+    let lineIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 50;
+    let pauseTime = 2000;
+
+    function typeTerminal() {
+      const currentLine = terminalLines[lineIndex];
+      
+      if (isDeleting) {
+        terminalText.innerHTML = currentLine.substring(0, charIndex - 1) + '<span class="terminal-cursor">█</span>';
+        charIndex--;
+        typingSpeed = 30;
+        
+        if (charIndex === 0) {
+          isDeleting = false;
+          lineIndex = (lineIndex + 1) % terminalLines.length;
+          typingSpeed = 50;
+          setTimeout(typeTerminal, 500);
+          return;
+        }
+      } else {
+        // Add random typing irregularities for realism
+        typingSpeed = Math.random() > 0.9 ? 300 : Math.random() > 0.5 ? 80 : 40;
+        
+        terminalText.innerHTML = currentLine.substring(0, charIndex) + '<span class="terminal-cursor">█</span>';
+        charIndex++;
+        
+        if (charIndex > currentLine.length) {
+          isDeleting = Math.random() > 0.7; // Sometimes clear line, sometimes just move to next
+          setTimeout(typeTerminal, pauseTime);
+          return;
+        }
+      }
+      
+      setTimeout(typeTerminal, typingSpeed);
+    }
+
+    // Occasionally add "system glitches" to the terminal
+    setInterval(() => {
+      if (Math.random() > 0.9) {
+        const originalContent = terminalText.innerHTML;
+        terminalText.innerHTML = originalContent.replace(/[a-zA-Z]/g, c => 
+          Math.random() > 0.8 ? String.fromCharCode(Math.random() > 0.5 ? 0x30A0 + Math.random() * 40 : c.charCodeAt(0)) : c);
+        
+        setTimeout(() => {
+          terminalText.innerHTML = originalContent;
+        }, 100);
+      }
+    }, 3000);
+
+    // Start typing
+    typeTerminal();
+
+    // Glitch effect button
+    const glitchBtn = document.getElementById('glitch-btn');
+    let glitchMode = false;
+    
+    glitchBtn.addEventListener('click', () => {
+      glitchMode = !glitchMode;
+      document.body.classList.toggle('extreme-glitch');
+      
+      if (glitchMode) {
+        startGlitchEffects();
+      } else {
+        stopGlitchEffects();
+      }
+    });
+    
+    function startGlitchEffects() {
+      // Create more intense glitch effects
+      document.querySelectorAll('.crt-frame').forEach(frame => {
+        gsap.to(frame, {
+          skewX: "random(-10, 10)",
+          skewY: "random(-5, 5)",
+          x: "random(-20, 20)",
+          y: "random(-20, 20)",
+          duration: 0.2,
+          repeat: -1,
+          yoyo: true,
+          ease: "none"
+        });
+      });
+      
+      // Glitch the logo
+      gsap.to('#logo', {
+        x: "random(-10, 10)",
+        y: "random(-10, 10)",
+        scale: "random(0.9, 1.1)",
+        rotation: "random(-10, 10)",
+        duration: 0.2,
+        repeat: -1,
+        yoyo: true
+      });
+      
+      // Random color flickers
+      const flickerInterval = setInterval(() => {
+        document.documentElement.style.setProperty('--glitch-color1', `rgb(0, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`);
+      }, 500);
+      
+      window.flickerInterval = flickerInterval;
+    }
+    
+    function stopGlitchEffects() {
+      document.querySelectorAll('.crt-frame').forEach(frame => {
+        gsap.killTweensOf(frame);
+        gsap.to(frame, {
+          skewX: 0,
+          skewY: 0,
+          x: 0,
+          y: 0,
+          duration: 0.5
+        });
+      });
+      
+      gsap.killTweensOf('#logo');
+      gsap.to('#logo', {
+        x: 0,
+        y: 0,
+        scale: 1,
+        rotation: 0,
+        duration: 0.5
+      });
+      
+      clearInterval(window.flickerInterval);
+      document.documentElement.style.setProperty('--glitch-color1', '#0ff');
+    }
+
+    // Add interactive cursor trail
+    document.addEventListener('mousemove', function(e) {
+      if (Math.random() > 0.8) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        trail.style.position = 'fixed';
+        trail.style.width = '5px';
+        trail.style.height = '5px';
+        trail.style.borderRadius = '50%';
+        trail.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        trail.style.boxShadow = '0 0 10px currentColor';
+        trail.style.left = `${e.clientX}px`;
+        trail.style.top = `${e.clientY}px`;
+        trail.style.pointerEvents = 'none';
+        trail.style.zIndex = '9999';
+        document.body.appendChild(trail);
+        
+        gsap.to(trail, {
+          opacity: 0,
+          scale: 3,
+          duration: 1,
+          onComplete: () => {
+            trail.remove();
+          }
+        });
+      }
+    });
+
+    // Random glitch elements
+    setInterval(() => {
+      if (Math.random() > 0.9) {
+        const glitchOverlay = document.createElement('div');
+        glitchOverlay.style.position = 'fixed';
+        glitchOverlay.style.top = '0';
+        glitchOverlay.style.left = '0';
+        glitchOverlay.style.width = '100%';
+        glitchOverlay.style.height = '100%';
+        glitchOverlay.style.backgroundColor = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.1)`;
+        glitchOverlay.style.mixBlendMode = 'overlay';
+        glitchOverlay.style.zIndex = '1000';
+        glitchOverlay.style.pointerEvents = 'none';
+        document.body.appendChild(glitchOverlay);
+        
+        setTimeout(() => {
+          glitchOverlay.remove();
+        }, 100);
+      }
+    }, 2000);
+  </script>
+  <!-- Three.js libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/DigitalGlitch.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/GlitchPass.min.js"></script>
+
+  <!-- Three.js Glitch Background -->
+  <script>
+    // Create a Three.js scene for the background
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.domElement.style.position = 'fixed';
+    renderer.domElement.style.top = '0';
+    renderer.domElement.style.left = '0';
+    renderer.domElement.style.zIndex = '-2';
+    renderer.domElement.style.pointerEvents = 'none';
+    document.body.appendChild(renderer.domElement);
+    
+    // Create grid of particles
+    const particleGeometry = new THREE.BufferGeometry();
+    const particleCount = 1500;
+    
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      // Position particles in a cube
+      positions[i] = (Math.random() - 0.5) * 10;
+      positions[i + 1] = (Math.random() - 0.5) * 10;
+      positions[i + 2] = (Math.random() - 0.5) * 10;
+      
+      // Random colors with a cyberpunk palette
+      colors[i] = Math.random() * 0.2;  // R
+      colors[i + 1] = Math.random() * 0.8 + 0.2;  // G (cyan dominant)
+      colors[i + 2] = Math.random() * 0.8 + 0.2;  // B
+    }
+    
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    
+    const particleMaterial = new THREE.PointsMaterial({
+      size: 0.05,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.8
+    });
+    
+    const particles = new THREE.Points(particleGeometry, particleMaterial);
+    scene.add(particles);
+    
+    // Add a cyberpunk grid
+    const gridSize = 20;
+    const gridDivisions = 20;
+    const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x00ffff, 0xff00ff);
+    scene.add(gridHelper);
+    
+    // Setup post-processing for glitch effect
+    const composer = new THREE.EffectComposer(renderer);
+    const renderPass = new THREE.RenderPass(scene, camera);
+    composer.addPass(renderPass);
+    
+    const glitchPass = new THREE.GlitchPass();
+    glitchPass.goWild = false;
+    glitchPass.enabled = false; // Start with glitch disabled
+    composer.addPass(glitchPass);
+    
+    // Camera position
+    camera.position.z = 5;
+    
+    // Control variables for glitch timing
+    let lastGlitchTime = 0;
+    const glitchInterval = 7000; // 7 seconds between glitches
+    const glitchDuration = 500; // Glitch lasts for 0.5 seconds
+    let isGlitchIntense = false;
+    
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      // Rotate particles
+      particles.rotation.x += 0.001;
+      particles.rotation.y += 0.002;
+      
+      // Rotate grid
+      gridHelper.rotation.x += 0.001;
+      gridHelper.rotation.y += 0.001;
+      
+      // Handle timed glitches
+      const currentTime = Date.now();
+      if (currentTime - lastGlitchTime > glitchInterval) {
+        // Time for a new glitch
+        glitchPass.enabled = true;
+        
+        // Use a milder glitch effect (not wild)
+        glitchPass.goWild = false;
+        
+        // Subtle camera shake during glitch
+        gsap.to(camera.position, {
+          x: (Math.random() - 0.5) * 0.2, // Reduced movement
+          y: (Math.random() - 0.5) * 0.2, // Reduced movement
+          duration: 0.2,
+          onComplete: () => {
+            gsap.to(camera.position, {
+              x: 0,
+              y: 0,
+              duration: 0.2
+            });
+          }
+        });
+        
+        // Set a timeout to disable the glitch after the duration
+        setTimeout(() => {
+          glitchPass.enabled = false;
+        }, glitchDuration);
+        
+        // Update the last glitch time
+        lastGlitchTime = currentTime;
+      }
+      
+      // Respond to audio if available
+      if (window.audioPlayer && !window.audioPlayer.paused) {
+        // Create effect synchronized with audio
+        particles.rotation.z += 0.001 * (window.audioPlayer.volume * 2);
+        gridHelper.material.opacity = 0.5 + window.audioPlayer.volume * 0.5;
+      }
+      
+      composer.render();
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      composer.setSize(window.innerWidth, window.innerHeight);
+    });
+    
+    // Connect glitch button to Three.js effects
+    document.getElementById('glitch-btn').addEventListener('click', function() {
+      // Toggle between normal mode and glitch mode
+      isGlitchIntense = !isGlitchIntense;
+      
+      if (isGlitchIntense) {
+        // In glitch mode, enable constant but mild glitches
+        glitchPass.enabled = true;
+        glitchPass.goWild = false;
+        
+        // Make particles move more dramatically but not crazy
+        gsap.to(particles.rotation, {
+          x: Math.PI / 4,
+          y: Math.PI / 4,
+          z: Math.PI / 6,
+          duration: 2,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut"
+        });
+      } else {
+        // In normal mode, return to timed glitches
+        glitchPass.enabled = false;
+        lastGlitchTime = Date.now(); // Reset the glitch timer
+        
+        // Return particles to normal rotation
+        gsap.killTweensOf(particles.rotation);
+      }
+    });
+    
+    animate();
+  </script>
+  <!-- Audio Oscillator Visualizer -->
+  <div class="visualizer-container">
+    <h2 class="glitch-title" style="font-size: 2rem; margin: 2rem 0;">AUDIO VISUALIZER</h2>
+    <div class="crt-frame visualizer-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
+      <canvas id="oscilloscope"></canvas>
+      <div class="crt-overlay"></div>
+      <div class="crt-scanline"></div>
+      <div class="visualizer-controls"></div>
+        <span>INTERACT: <span class="control-highlight">HOVER/CLICK</span></span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="cyber-footer">
+    <div class="noise-overlay"></div>
+    <div class="scanline"></div>
+    
+    <div class="footer-content">
+      <div class="footer-logo" data-aos="zoom-in">
+        <h2 class="glitch-text" data-text="BITKILL">BITKILL</h2>
+      </div>
+      
+      <div class="social-links" data-aos="fade-up">
+        <a href="https://www.instagram.com/bitkillmusic" class="social-link" target="_blank" rel="noopener">
+          <div class="icon-glitch">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.247-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.218-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 1.802c-2.67 0-2.986.01-4.04.059-.976.045-1.505.207-1.858.344-.466.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.048 1.055-.058 1.37-.058 4.04 0 2.67.01 2.986.058 4.04.045.976.207 1.505.344 1.858.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.04.058 2.67 0 2.987-.01 4.04-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.04 0-2.67-.01-2.986-.058-4.04-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 0 0-.748-1.15 3.098 3.098 0 0 0-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.054-.048-1.37-.058-4.04-.058zm0 3.063a5.135 5.135 0 1 1 0 10.27 5.135 5.135 0 0 1 0-10.27zm0 8.468a3.333 3.333 0 1 0 0-6.666 3.333 3.333 0 0 0 0 6.666zm6.538-8.469a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg>
+          </div>
+          <span>INSTAGRAM</span>
+        </a>
+        
+        <a href="https://www.tiktok.com/@bitkillmusic" class="social-link" target="_blank" rel="noopener">
+          <div class="icon-glitch">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.59-1.16-2.59-2.5 0-1.4 1.16-2.5 2.59-2.5.27 0 .53.04.77.13v-3.13c-.27-.03-.54-.05-.81-.05-3.37 0-6.1 2.73-6.1 6.1s2.73 6.1 6.1 6.1 6.1-2.73 6.1-6.1V8.92c1.4.87 3.01 1.32 4.73 1.32v-3.1c-1.56 0-3.03-.75-3.97-1.85Z"/></svg>
+          </div>
+          <span>TIKTOK</span>
+        </a>
+        
+        <a href="https://music.apple.com/ca/artist/bitkill/1798375079" class="social-link" target="_blank" rel="noopener">
+          <div class="icon-glitch">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M11.979 2.1a9.87 9.87 0 0 1 2.237.288c2.112.562 3.996 2.081 5.106 4.143 1.092 2.063 1.331 4.292.737 6.534-.562 2.112-2.081 3.996-4.143 5.106-2.063 1.092-4.292 1.331-6.534.737-2.112-.568-3.996-2.082-5.106-4.144-1.087-2.057-1.331-4.292-.732-6.535.562-2.112 2.081-3.996 4.143-5.105A9.974 9.974 0 0 1 11.979 2.1zm.05 12.646c.166.055.485.098.742.098 1.299 0 1.996-.788 1.996-1.977 0-1.113-.724-1.956-1.996-1.956-.27 0-.576.048-.742.098v3.737zM9.734 9.055c0-.368.235-.57.687-.57.368 0 1.127.043 1.608.043.519 0 1.459-.043 2.012-.043 1.561 0 2.688.83 2.688 2.36 0 1.739-1.127 2.584-2.495 2.801.098.153.209.295.32.436.465.654 1.055 1.299 1.561 1.299.343 0 .466-.098.466-.398v-.098c0-.252.184-.49.466-.49.282 0 .489.227.489.49v.086c0 .874-.466 1.352-1.207 1.352-.61 0-1.322-.417-1.9-1.158-.398-.52-.898-1.25-1.238-1.76-.098-.16-.233-.22-.398-.22h-.282v1.944c0 .752-.184.916-.687.916-.466 0-.65-.184-.65-.916V9.055z"/></svg>
+          </div>
+          <span>APPLE MUSIC</span>
+        </a>
+        
+        <a href="https://open.spotify.com/artist/77rJyhZHx1Hryl3kroO28A" class="social-link" target="_blank" rel="noopener">
+          <div class="icon-glitch">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm4.51 14.37c-.18.28-.56.36-.84.18-2.3-1.41-5.2-1.73-8.62-.94-.33.09-.66-.13-.75-.46-.09-.33.13-.66.46-.75 3.74-.85 6.97-.49 9.56 1.14.29.18.36.56.19.83zm1.2-2.68c-.22.34-.69.44-1.03.22-2.65-1.63-6.68-2.1-9.82-1.15-.4.12-.82-.1-.94-.5-.12-.4.1-.82.5-.94 3.58-1.09 8.02-.56 11.06 1.33.35.22.45.69.23 1.04zm.1-2.77c-.25.33-.77.42-1.1.17-.85-.52-1.97-.86-3.26-1.06-1.32-.2-2.65-.16-3.87.11-1.15.25-2.14.7-2.94 1.35-.33.27-.82.21-1.09-.12-.27-.33-.21-.82.12-1.09.95-.77 2.11-1.31 3.44-1.6 1.38-.3 2.9-.34 4.41-.11 1.45.22 2.77.62 3.81 1.24.34.25.42.77.17 1.1zm0 0"/></svg>
+          </div>
+          <span>SPOTIFY</span>
+        </a>
+      </div>
+      
+      <div class="footer-divider">
+        <div class="glitch-line"></div>
+      </div>
+      
+      <div class="copyright" data-aos="fade-up">
+        <p class="glitch-text small" data-text="© 2024 BITKILL · ALL RIGHTS RESERVED">© 2024 BITKILL · ALL RIGHTS RESERVED</p>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .cyber-footer {
+      position: relative;
+      margin-top: 6rem;
+      padding: 4rem 2rem;
+      background-color: #000;
+      overflow: hidden;
+      color: var(--glitch-color1);
+      border-top: 2px solid var(--glitch-color1);
+    }
+    
+    .cyber-footer:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--glitch-color1) 30%, 
+        var(--glitch-color2) 50%, 
+        var(--glitch-color3) 70%, 
+        transparent 100%);
+      animation: footer-border-slide 3s infinite linear;
+    }
+    
+    .noise-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAA10lEQVRoge3ZMQ7CMBBEUb4D9+/AjagpKFKA2MXuxvNeS6T8TxqUiHPOuQXdGo9fR9LzUewzkvaRdO9HknRr/iD2j9qDSG1B5I8aaQtiH7WHkNqC2MO/KYyE0RhitD9Lwv4sCdufJWF7loRxkQzGRTIYF8lgXCSDcZEMxkUyGBfJYFwkg3GRDMZFMhgXyWBcJINxkQzGRTIYF8lgXCSDcZEMxkUyGBfJYFwkg3GRDMZFMhgXyWBcJIMpF0nvqOuzyhjR5ekyRnQ6poxR2pJw7n/8AA58Ert5Od5aAAAAAElFTkSuQmCC') repeat;
+      opacity: 0.15;
+      z-index: 1;
+    }
+    
+    .scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: rgba(0, 255, 255, 0.3);
+      opacity: 0.3;
+      z-index: 2;
+      box-shadow: 0 0 15px 0 rgba(0, 255, 255, 0.5);
+      animation: scanline 8s linear infinite;
+    }
+    
+    .footer-content {
+      position: relative;
+      z-index: 3;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+    
+    .footer-logo {
+      position: relative;
+    }
+    
+    .footer-logo:before {
+      content: "SYSTEM.CONNECT_TO(NETWORK)";
+      position: absolute;
+      top: -20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--glitch-color2);
+      letter-spacing: 2px;
+    }
+    
+    .footer-logo h2 {
+      font-size: 3.5rem;
+      letter-spacing: 5px;
+      margin: 0;
+      position: relative;
+      text-transform: uppercase;
+    }
+    
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+    
+    .social-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--glitch-color1);
+      transition: all 0.3s ease;
+      padding: 1rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid transparent;
+    }
+    
+    .social-link:hover {
+      color: var(--glitch-color3);
+      transform: translateY(-5px);
+      border: 1px solid var(--glitch-color3);
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    }
+    
+    .social-link:before {
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 255, 255, 0.2), transparent);
+      transition: all 0.5s ease;
+      z-index: -1;
+    }
+    
+    .social-link:hover:before {
+      top: 0;
+    }
+    
+    .icon-glitch {
+      position: relative;
+      margin-bottom: 0.5rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .icon-glitch svg {
+      width: 30px;
+      height: 30px;
+      filter: drop-shadow(0 0 3px currentColor);
+    }
+    
+    .social-link:hover .icon-glitch svg {
+      animation: icon-glitch 1s infinite;
+    }
+    
+    .social-link span {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+    }
+    
+    .footer-divider {
+      width: 100%;
+      position: relative;
+      height: 2px;
+      overflow: hidden;
+    }
+    
+    .glitch-line {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, var(--glitch-color1), transparent);
+      position: absolute;
+      animation: glitch-line 3s infinite linear;
+    }
+    
+    .copyright {
+      text-align: center;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      opacity: 0.7;
+    }
+    
+    .glitch-text {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .glitch-text:hover:after,
+    .glitch-text:hover:before {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .glitch-text:hover:before {
+      color: var(--glitch-color2);
+      z-index: -1;
+      animation: glitch-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    }
+    
+    .glitch-text:hover:after {
+      color: var(--glitch-color3);
+      z-index: -2;
+      animation: glitch-anim2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+    }
+    
+    .glitch-text.small {
+      font-size: 0.9rem;
+    }
+    
+    @keyframes footer-border-slide {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    @keyframes scanline {
+      0% { top: -5px; }
+      100% { top: 100%; }
+    }
+    
+    @keyframes glitch-line {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+      50.1% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    @keyframes icon-glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+    
+    @keyframes glitch-anim {
+      0% { transform: translate(0); }
+      20% { transform: translate(-3px, 3px); }
+      40% { transform: translate(-3px, -3px); }
+      60% { transform: translate(3px, 3px); }
+      80% { transform: translate(3px, -3px); }
+      100% { transform: translate(0); }
+    }
+    
+    @keyframes glitch-anim2 {
+      0% { transform: translate(0); }
+      20% { transform: translate(3px, -3px); }
+      40% { transform: translate(3px, 3px); }
+      60% { transform: translate(-3px, -3px); }
+      80% { transform: translate(-3px, 3px); }
+      100% { transform: translate(0); }
+    }
+    
+    @media (max-width: 768px) {
+      .social-links {
+        gap: 1rem;
+      }
+      
+      .social-link {
+        padding: 0.8rem;
+      }
+      
+      .icon-glitch {
+        width: 30px;
+        height: 30px;
+      }
+      
+      .icon-glitch svg {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .footer-logo h2 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add random glitch effects to social media icons
+      const socialLinks = document.querySelectorAll('.social-link');
+      
+      socialLinks.forEach(link => {
+        // Random glitch effect on random interval
+        setInterval(() => {
+          if (Math.random() > 0.7) {
+            const icon = link.querySelector('.icon-glitch');
+            
+            // Add glitch class
+            icon.classList.add('glitching');
+            
+            // Create glitch overlay
+            const glitchOverlay = document.createElement('div');
+            glitchOverlay.classList.add('glitch-overlay');
+            icon.appendChild(glitchOverlay);
+            
+            // Remove after short duration
+            setTimeout(() => {
+              icon.classList.remove('glitching');
+              if (glitchOverlay.parentNode === icon) {
+                icon.removeChild(glitchOverlay);
+              }
+            }, 200);
+          }
+        }, 2000 + Math.random() * 3000); // Random interval between 2-5 seconds
+      });
+      
+      // Add occasional footer-wide glitch effect
+      setInterval(() => {
+        if (Math.random() > 0.9) {
+          const footer = document.querySelector('.cyber-footer');
+          footer.style.clipPath = `inset(${Math.random() * 10}% 0 ${Math.random() * 5}% 0)`;
+          
+          setTimeout(() => {
+            footer.style.clipPath = 'none';
+          }, 150);
+        }
+      }, 5000);
+    });
+  </script>
+
+  <style>
+    .visualizer-container {
+      margin: 4rem auto;
+      width: 100%;
+      max-width: 1000px; /* Increased width */
+      text-align: center;
+    }
+    
+    .visualizer-frame {
+      height: 250px; /* Increased height */
+      position: relative;
+      overflow: hidden;
+    }
+    
+    #oscilloscope {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .visualizer-frame:before {
+      content: "// NEURAL OSCILLATOR";
+      position: absolute;
+      top: -25px;
+      left: 10px;
+      font-size: 0.8rem;
+      color: var(--glitch-color3);
+      text-shadow: 0 0 5px var(--glitch-color3);
+      z-index: 10;
+    }
+    
+    .visualizer-controls {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 0.7rem;
+      color: var(--glitch-color1);
+      text-shadow: 0 0 5px var(--glitch-color1);
+      z-index: 10;
+      opacity: 0.8;
+    }
+    
+    .control-highlight {
+      color: var(--glitch-color3);
+    }
+  </style>
+
+  <script>
+    // Audio Oscilloscope Visualizer
+    document.addEventListener('DOMContentLoaded', function() {
+      const canvas = document.getElementById('oscilloscope');
+      const ctx = canvas.getContext('2d');
+      
+      // Setup canvas size
+      function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+      
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      
+      // Audio context setup
+      let audioContext;
+      let analyser;
+      let dataArray;
+      let isListening = false;
+      let oscillator;
+      let oscillator2;
+      let time = 0;
+      
+      // Mouse interaction variables
+      let mouseX = 0;
+      let mouseY = 0;
+      let mouseInside = false;
+      let mouseFrequency = 440;
+      let mouseAmplitude = 50;
+      let visualizationMode = 0; // 0: default, 1: circular, 2: bars, 3: dots
+      
+      // Initialize dummy oscillator
+      function initDummyVisualizer() {
+        if (audioContext) return;
+        
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 2048;
+        const bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+        
+        // Create dummy oscillators
+        oscillator = audioContext.createOscillator();
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+        
+        oscillator2 = audioContext.createOscillator();
+        oscillator2.type = 'sawtooth';
+        oscillator2.frequency.setValueAtTime(220, audioContext.currentTime);
+        
+        // Create gain nodes for volume control
+        const gainNode = audioContext.createGain();
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime); // Silent output
+        
+        // Connect the oscillators
+        oscillator.connect(analyser);
+        oscillator2.connect(analyser);
+        analyser.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        // Start the oscillators
+        oscillator.start();
+        oscillator2.start();
+        isListening = true;
+        
+        // Start drawing
+        drawOscilloscope();
+      }
+      
+      // Draw the oscilloscope
+      function drawOscilloscope() {
+        if (!isListening) return;
+        
+        requestAnimationFrame(drawOscilloscope);
+        
+        // Update the oscillator frequencies based on mouse position if inside canvas
+        time += 0.01;
+        
+        if (mouseInside) {
+          // Use mouse position to control frequencies
+          oscillator.frequency.setValueAtTime(mouseFrequency, audioContext.currentTime);
+          oscillator2.frequency.setValueAtTime(mouseFrequency / 2, audioContext.currentTime);
+          mouseAmplitude = mouseY / canvas.height * 100;
+        } else {
+          // Default behavior when mouse is not over canvas
+          oscillator.frequency.setValueAtTime(440 + Math.sin(time) * 100, audioContext.currentTime);
+          oscillator2.frequency.setValueAtTime(220 + Math.cos(time * 0.5) * 50, audioContext.currentTime);
+          mouseAmplitude = 50;
+        }
+        
+        // Generate dummy waveform data
+        for (let i = 0; i < dataArray.length; i++) {
+          // Create a mix of sine waves for interesting patterns
+          const t = time + i * 0.001;
+          const v = Math.sin(t * 5) * mouseAmplitude + Math.sin(t * 10) * (mouseAmplitude * 0.6) + Math.sin(t * 20) * (mouseAmplitude * 0.3);
+          dataArray[i] = 128 + v;
+        }
+        
+        // Clear canvas with fade effect
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw grid lines
+        ctx.strokeStyle = 'rgba(0, 255, 255, 0.1)'; // Cyan grid lines to match website theme
+        ctx.lineWidth = 1;
+        
+        // Horizontal grid lines
+        const gridStep = canvas.height / 10;
+        for (let i = 0; i < canvas.height; i += gridStep) {
+          ctx.beginPath();
+          ctx.moveTo(0, i);
+          ctx.lineTo(canvas.width, i);
+          ctx.stroke();
+        }
+        
+        // Vertical grid lines
+        for (let i = 0; i < canvas.width; i += gridStep) {
+          ctx.beginPath();
+          ctx.moveTo(i, 0);
+          ctx.lineTo(i, canvas.height);
+          ctx.stroke();
+        }
+        
+        // Choose visualization based on mode
+        switch(visualizationMode) {
+          case 0: 
+            drawWaveform();
+            break;
+          case 1:
+            drawCircular();
+            break;
+          case 2:
+            drawBars();
+            break;
+          case 3:
+            drawDots();
+            break;
+        }
+        
+        // Add CRT phosphor glow effect
+        const glowColor = mouseInside ? `rgba(${Math.sin(time*3)*50+200}, ${Math.cos(time*2)*50+200}, 255, 0.05)` : 'rgba(0, 255, 255, 0.05)';
+        ctx.fillStyle = glowColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Add glitch effect occasionally
+        if (Math.random() > 0.97) {
+          addGlitchEffect();
+        }
+      }
+      
+      // Draw standard waveform
+      function drawWaveform() {
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'var(--glitch-color1)'; // Match website cyan color
+        ctx.beginPath();
+        
+        const sliceWidth = canvas.width / dataArray.length;
+        let x = 0;
+        
+        for (let i = 0; i < dataArray.length; i++) {
+          const v = dataArray[i] / 128.0;
+          const y = v * canvas.height / 2;
+          
+          if (i === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+          
+          x += sliceWidth;
+        }
+        
+        ctx.stroke();
+      }
+      
+      // Draw circular visualization
+      function drawCircular() {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = Math.min(canvas.width, canvas.height) / 3;
+        
+        ctx.strokeStyle = 'var(--glitch-color2)'; // Pink color
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        
+        for (let i = 0; i < dataArray.length; i += 4) {
+          const angle = (i / dataArray.length) * Math.PI * 2;
+          const amplitude = (dataArray[i] / 128.0) - 1;
+          const x = centerX + Math.cos(angle) * (radius + amplitude * 50);
+          const y = centerY + Math.sin(angle) * (radius + amplitude * 50);
+          
+          if (i === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+        
+        ctx.closePath();
+        ctx.stroke();
+      }
+      
+      // Draw bar visualization
+      function drawBars() {
+        const barWidth = canvas.width / 64;
+        let x = 0;
+        
+        for (let i = 0; i < dataArray.length; i += 32) {
+          const barHeight = (dataArray[i] / 256.0) * canvas.height;
+          
+          // Gradient based on bar height
+          const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
+          gradient.addColorStop(0, 'var(--glitch-color3)'); // Green at top
+          gradient.addColorStop(1, 'var(--glitch-color1)'); // Cyan at bottom
+          
+          ctx.fillStyle = gradient;
+          ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+          
+          x += barWidth + 1;
+          if (x > canvas.width) break;
+        }
+      }
+      
+      // Draw dots visualization
+      function drawDots() {
+        const step = Math.floor(dataArray.length / 100);
+        
+        for (let i = 0; i < dataArray.length; i += step) {
+          const x = (i / dataArray.length) * canvas.width;
+          const y = (dataArray[i] / 256.0) * canvas.height;
+          const size = (dataArray[i] / 256.0) * 10 + 2;
+          
+          // Change color based on position
+          const hue = (i / dataArray.length) * 360;
+          ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+          
+          ctx.beginPath();
+          ctx.arc(x, y, size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      
+      // Add glitch effect
+      function addGlitchEffect() {
+        const glitchHeight = Math.random() * canvas.height;
+        const glitchWidth = canvas.width;
+        const glitchY = Math.random() * canvas.height;
+        
+        // Get image data from canvas
+        const imageData = ctx.getImageData(0, glitchY, glitchWidth, glitchHeight);
+        const data = imageData.data;
+        
+        // Shift color channels
+        for (let i = 0; i < data.length; i += 4) {
+          if (Math.random() > 0.5) {
+            // Swap R and B channels
+            const temp = data[i];
+            data[i] = data[i + 2];
+            data[i + 2] = temp;
+          }
+        }
+        
+        // Put the manipulated image data back
+        ctx.putImageData(imageData, 0, glitchY);
+        
+        // Draw horizontal glitch lines
+        ctx.strokeStyle = `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 0.8)`;
+        ctx.lineWidth = Math.random() * 3 + 1;
+        ctx.beginPath();
+        ctx.moveTo(0, glitchY + Math.random() * glitchHeight);
+        ctx.lineTo(canvas.width, glitchY + Math.random() * glitchHeight);
+        ctx.stroke();
+      }
+      
+      // Mouse interaction
+      canvas.addEventListener('mousemove', function(e) {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+        
+        // Map X position to frequency between 220-880 Hz
+        mouseFrequency = 220 + (mouseX / canvas.width) * 660;
+      });
+      
+      canvas.addEventListener('mouseenter', function() {
+        mouseInside = true;
+      });
+      
+      canvas.addEventListener('mouseleave', function() {
+        mouseInside = false;
+      });
+      
+      // Click to change visualization mode
+      canvas.addEventListener('click', function() {
+        if (!isListening) {
+          initDummyVisualizer();
+        } else {
+          // Cycle through visualization modes
+          visualizationMode = (visualizationMode + 1) % 4;
+        }
+      });
+      
+      // Initialize visualizer automatically
+      setTimeout(initDummyVisualizer, 1000);
+      
+      // Connect to global audio if available
+      document.addEventListener('audioready', function(e) {
+        if (window.audioPlayer && audioContext) {
+          // Connect to the main audio player if it exists
+          try {
+            const source = audioContext.createMediaElementSource(window.audioPlayer);
+            source.connect(analyser);
+          } catch (err) {
+            console.log('Could not connect to audio player');
+          }
+        }
+      });
+      
+      // Display initial message
+      ctx.fillStyle = 'var(--glitch-color1)';
+      ctx.font = '16px "Share Tech Mono"';
+      ctx.textAlign = 'center';
+      ctx.fillText('INITIALIZING NEURAL OSCILLATOR...', canvas.width / 2, canvas.height / 2 - 10);
+      ctx.fillText('CLICK TO CHANGE VISUALIZATION MODE', canvas.width / 2, canvas.height / 2 + 20);
+    });
+  </script>
+  <!-- User interaction sound trigger -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Variables to track user interaction
+      let userInteracted = false;
+      
+      // Function to handle first user interaction
+      function handleFirstInteraction() {
+        if (!userInteracted) {
+          userInteracted = true;
+          
+          // Trigger the sound toggle button
+          const soundToggle = document.getElementById('sound-toggle');
+          if (soundToggle && !soundToggle.classList.contains('active')) {
+            soundToggle.click();
+          }
+          
+          // Remove the event listeners once triggered
+          document.removeEventListener('click', handleFirstInteraction);
+          document.removeEventListener('keydown', handleFirstInteraction);
+          document.removeEventListener('touchstart', handleFirstInteraction);
+          document.removeEventListener('scroll', handleFirstInteraction);
+        }
+      }
+      
+      // Add event listeners for various user interactions
+      document.addEventListener('click', handleFirstInteraction);
+      document.addEventListener('keydown', handleFirstInteraction);
+      document.addEventListener('touchstart', handleFirstInteraction);
+      document.addEventListener('scroll', handleFirstInteraction);
+      
+      // Show a notification to encourage interaction
+      setTimeout(function() {
+        if (!userInteracted) {
+          const terminal = document.getElementById('terminal-text');
+          if (terminal) {
+            terminal.innerHTML += '<br>// WAITING FOR USER INPUT TO ACTIVATE AUDIO STREAM...';
+          }
+        }
+      }, 3000);
+    });
+  </script>
+</body>
+</html></video></section></div>
