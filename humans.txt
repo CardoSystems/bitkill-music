@@ -1,0 +1,20 @@
+/* TEAM */
+    Artist: BITKILL
+    Contact: bitkill@ipv7.pt
+    Twitter: @bitkillmusic
+    Instagram: @bitkillmusic
+    TikTok: @bitkillmusic
+    Location: Digital Realm
+
+    Developer: Diogo Cardoso
+    Website: bitkillmusic.com
+    
+/* SITE */
+    Last update: 2025-08-02
+    Standards: HTML5, CSS3, ES6
+    Components: Three.js, Service Workers, WebAudio API
+    Software: Visual Studio Code, Photoshop, Ableton Live
+
+/* THANKS */
+    Fans: All BITKILL listeners and supporters
+

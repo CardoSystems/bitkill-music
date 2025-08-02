@@ -1,0 +1,10 @@
+# BitKill Music Website Robots.txt
+# Last updated: August 2, 2025
+
+User-agent: *
+Allow: /
+Disallow: /assets/js/
+Disallow: /service-worker.js
+
+# Sitemap location
+Sitemap: https://bitkillmusic.com/sitemap.xml

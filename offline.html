@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BitKill - Offline Mode</title>
+  <style>
+    :root {
+      --glitch-color1: #0ff;
+      --glitch-color2: #f0f;
+      --bg-color: #000;
+      --text-color: #fff;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Share Tech Mono', monospace;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+    
+    .offline-container {
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+    }
+    
+    h1::before, h1::after {
+      content: 'CONNECTION LOST';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    h1::before {
+      left: 3px;
+      text-shadow: -2px 0 var(--glitch-color1);
+      animation: glitch-1 2s infinite linear alternate-reverse;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+    
+    h1::after {
+      left: -3px;
+      text-shadow: 2px 0 var(--glitch-color2);
+      animation: glitch-2 3s infinite linear alternate-reverse;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    }
+    
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+    
+    .crt-scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.02) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      animation: scanline 6s linear infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+    
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAnFBMVEUAAAD///////8AAAD///8AAAAAAAAAAAD///8AAAD///8AAAD///////8AAAD///8AAAD///8AAAD///////////8AAAD///8AAAD///////////8AAAD///////8AAAD///8AAAD///8AAAD///////////////8AAAD///////////////////////////8AAAD///////////////8cXWUXAAAANHRSTlOAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgN/SK6kAAAFVSURBVFjD7dfbboMwDIDhhHOAAOVQKKWlh9Xu/d9uF21aWsoYabd8N5ZjKz8ksSMkEolE/rFmx9YfLdYbVJBjjiW2uGCFOSrIUUGJAKTyMGl1kj4MIKnJA4BP5KFX+vYJ4JB5qJREv2T14JxQSV8uIFky5fTlu5hdI3YOCQCpCPLFgz2TD363zIZ/2jOsGZzzyftNaD0PufQEQPJ+I1S7yQrPc+VdX+s8j3nHSz+Heo+Ojv3x6NLfO0f3eubSN1N8OpnT01N5+3lb4+NiWMFpvZ26noj2EfOe5j0R55HznjTkFfSC6UNe2vP+1GbX1Xhg5rrRGTsvmLlOhDznZpJ/jx0Hv7IXggchzz+crJF/J+QFgc7l7LR/S34eML6/3S8mK0gegkH6uD9cuZpEWQgGyYvla8izEAySV7PnyH+KvAzBIPXj55nIyxAMHkLxiTyMxXskEon8d/4Ak31O28uchLMAAAAASUVORK5CYII=");
+      opacity: 0.07;
+      animation: noise 0.5s steps(8) infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 0.8rem 1.6rem;
+      background-color: transparent;
+      border: 2px solid var(--glitch-color1);
+      color: var(--text-color);
+      text-transform: uppercase;
+      font-family: inherit;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin: 0.5rem;
+    }
+    
+    .button:hover {
+      background-color: rgba(0, 255, 255, 0.1);
+      box-shadow: 0 0 10px var(--glitch-color1);
+    }
+    
+    .button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 255, 255, 0.2),
+        transparent
+      );
+      transition: all 0.6s ease;
+    }
+    
+    .button:hover::before {
+      left: 100%;
+    }
+    
+    .cached-content {
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 800px;
+    }
+    
+    .cached-list {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      display: none; /* Initially hidden, JS will show this */
+    }
+    
+    .cached-list li {
+      padding: 0.5rem 1rem;
+      margin: 0.5rem 0;
+      border-left: 2px solid var(--glitch-color1);
+      background-color: rgba(0, 255, 255, 0.05);
+    }
+    
+    .terminal {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--glitch-color1);
+      width: 100%;
+      max-width: 600px;
+      text-align: left;
+      position: relative;
+    }
+    
+    .terminal::before {
+      content: 'SYSTEM STATUS';
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      background-color: var(--bg-color);
+      padding: 0 0.5rem;
+      font-size: 0.8rem;
+      color: var(--glitch-color1);
+    }
+    
+    .terminal-text {
+      color: var(--glitch-color1);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    .blink {
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes glitch-1 {
+      0%, 5% { transform: translate(0); }
+      1% { transform: translate(-5px, 5px); }
+      2% { transform: translate(5px, -5px); }
+      3% { transform: translate(-5px, -5px); }
+      4% { transform: translate(5px, 5px); }
+    }
+    
+    @keyframes glitch-2 {
+      0%, 5% { transform: translate(0); }
+      1% { transform: translate(5px, -5px); }
+      2% { transform: translate(-5px, 5px); }
+      3% { transform: translate(5px, 5px); }
+      4% { transform: translate(-5px, -5px); }
+    }
+    
+    @keyframes scanline {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+    
+    @keyframes noise {
+      0% { transform: translate(0, 0); }
+      10% { transform: translate(-5%, -5%); }
+      20% { transform: translate(10%, 5%); }
+      30% { transform: translate(-5%, 10%); }
+      40% { transform: translate(15%, -10%); }
+      50% { transform: translate(-10%, 15%); }
+      60% { transform: translate(5%, -5%); }
+      70% { transform: translate(-5%, 5%); }
+      80% { transform: translate(10%, 10%); }
+      90% { transform: translate(-10%, -10%); }
+      100% { transform: translate(0, 0); }
+    }
+    
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="noise-overlay"></div>
+  <div class="crt-scanline"></div>
+  
+  <div class="offline-container">
+    <h1>CONNECTION LOST</h1>
+    <p>NEURAL INTERFACE DISRUPTED // NETWORK SIGNAL TERMINATED // RUNNING ON CACHED DATA</p>
+    
+    <div class="terminal">
+      <div class="terminal-text">
+        > SYSTEM DIAGNOSTIC<br>
+        > NETWORK STATUS: OFFLINE<br>
+        > CACHE STATUS: OPERATIONAL<br>
+        > INITIATING OFFLINE MODE<br>
+        > <span class="blink">_</span>
+      </div>
+    </div>
+    
+    <div>
+      <button class="button" id="retry-button">RECONNECT</button>
+      <button class="button" id="show-cached">SHOW CACHED CONTENT</button>
+    </div>
+    
+    <div class="cached-content">
+      <ul class="cached-list" id="cached-list">
+        <!-- JS will populate this list -->
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Check if we're actually offline
+    if (!navigator.onLine) {
+      document.getElementById('terminal-status').textContent = 'OFFLINE';
+    }
+    
+    // Retry connection
+    document.getElementById('retry-button').addEventListener('click', function() {
+      window.location.reload();
+    });
+    
+    // Show cached content
+    document.getElementById('show-cached').addEventListener('click', async function() {
+      const cachedList = document.getElementById('cached-list');
+      cachedList.style.display = 'block';
+      
+      try {
+        // Get all cache storage names
+        const cacheNames = await caches.keys();
+        
+        // For each cache, get all the cached URLs
+        for (const cacheName of cacheNames) {
+          const cache = await caches.open(cacheName);
+          const requests = await cache.keys();
+          
+          // Create a group for this cache
+          const cacheGroup = document.createElement('li');
+          cacheGroup.innerHTML = `<strong>${cacheName}</strong>`;
+          cachedList.appendChild(cacheGroup);
+          
+          // Create a nested list for cache items
+          const cacheItems = document.createElement('ul');
+          cacheGroup.appendChild(cacheItems);
+          
+          // Add each cached URL to the list
+          for (const request of requests) {
+            // Skip service worker and some external resources
+            if (request.url.includes('service-worker.js') || 
+                request.url.includes('spotifycdn.com')) {
+              continue;
+            }
+            
+            const item = document.createElement('li');
+            
+            // Create a link if it's an HTML page
+            if (request.url.endsWith('.html') || request.url.endsWith('/')) {
+              item.innerHTML = `<a href="${request.url}">${request.url}</a>`;
+            } else {
+              item.textContent = request.url;
+            }
+            
+            cacheItems.appendChild(item);
+          }
+        }
+      } catch (error) {
+        cachedList.innerHTML = '<li>Error retrieving cached content</li>';
+        console.error('Error retrieving cache:', error);
+      }
+    });
+  </script>
+</body>
+</html>
