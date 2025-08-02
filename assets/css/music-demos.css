@@ -1,0 +1,46 @@
+ .music-demos {
+        margin: 4rem auto;
+        width: 90%;
+        max-width: 800px;
+        text-align: center;
+      }
+      
+      .spotify-frame {
+        margin: 1.5rem auto;
+        aspect-ratio: auto;
+        height: auto;
+        position: relative;
+        overflow: visible;
+      }
+      
+      .spotify-frame:before {
+        content: "// ENCRYPTED AUDIO STREAM";
+        position: absolute;
+        top: -25px;
+        left: 10px;
+        font-size: 0.8rem;
+        color: var(--glitch-color1);
+        text-shadow: 0 0 5px var(--glitch-color1);
+      }
+      
+      .spotify-frame:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 1px solid var(--glitch-color1);
+        pointer-events: none;
+        animation: glitch-border 2s infinite;
+      }
+      
+      @keyframes glitch-border {
+        0% { clip-path: inset(0 0 0 0); }
+        5% { clip-path: inset(30% 0 0 0); }
+        10% { clip-path: inset(0 10% 0 0); }
+        15% { clip-path: inset(0 0 10% 0); }
+        20% { clip-path: inset(0 0 0 30%); }
+        25% { clip-path: inset(0 0 0 0); }
+        100% { clip-path: inset(0 0 0 0); }
+      }
