@@ -5,7 +5,7 @@
         text-align: center;
       }
       
-      .spotify-frame {
+      .apple-music-frame {
         margin: 1.5rem auto;
         aspect-ratio: auto;
         height: auto;
@@ -13,7 +13,7 @@
         overflow: visible;
       }
       
-      .spotify-frame:before {
+      .apple-music-frame:before {
         content: "// ENCRYPTED AUDIO STREAM";
         position: absolute;
         top: -25px;
@@ -23,7 +23,7 @@
         text-shadow: 0 0 5px var(--glitch-color1);
       }
       
-      .spotify-frame:after {
+      .apple-music-frame:after {
         content: "";
         position: absolute;
         top: 0;
@@ -33,6 +33,88 @@
         border: 1px solid var(--glitch-color1);
         pointer-events: none;
         animation: glitch-border 2s infinite;
+        z-index: 5;
+      }
+      
+      .apple-music-frame iframe {
+        position: relative;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        filter: contrast(1.1) brightness(1.05);
+        transition: all 0.3s ease;
+      }
+      
+      .apple-music-frame:hover iframe {
+        filter: contrast(1.2) brightness(1.1);
+      }
+      
+      .apple-music-frame .crt-overlay {
+        opacity: 0.15;
+      }
+      
+      .apple-music-frame .crt-scanline {
+        opacity: 0.2;
+        animation: scanline 6s linear infinite;
+      }
+      
+      .apple-music-frame.featured {
+        position: relative;
+      }
+      
+      .apple-music-frame.featured:before {
+        content: "// NEW RELEASE";
+        color: var(--glitch-color2);
+        text-shadow: 0 0 8px var(--glitch-color2);
+        animation: pulse 1.5s infinite alternate;
+      }
+      
+      .apple-music-frame.featured:after {
+        border: 2px solid var(--glitch-color2);
+        box-shadow: 0 0 15px var(--glitch-color2);
+        animation: glitch-featured 3s infinite;
+      }
+      
+      .apple-music-frame.featured iframe {
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+      }
+      
+      @keyframes glitch-featured {
+        0% { clip-path: inset(0 0 0 0); }
+        5% { clip-path: inset(20% 0 0 0); border-color: #ff00ff; }
+        7% { clip-path: inset(0 0 0 0); border-color: var(--glitch-color2); }
+        10% { clip-path: inset(0 5% 0 0); border-color: #00ffff; }
+        12% { clip-path: inset(0 0 0 0); border-color: var(--glitch-color2); }
+        30% { clip-path: inset(0 0 5% 0); border-color: #ff00ff; }
+        32% { clip-path: inset(0 0 0 0); border-color: var(--glitch-color2); }
+        45% { clip-path: inset(0 0 0 10%); border-color: #00ffff; }
+        47% { clip-path: inset(0 0 0 0); border-color: var(--glitch-color2); }
+        100% { clip-path: inset(0 0 0 0); }
+      }
+      
+      /* Apple Music iframe styles */
+      .apple-music-frame iframe {
+        width: 100%;
+        max-width: 660px;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+      
+      .music-demos h3 {
+        text-align: center; 
+        font-size: 2rem; 
+        margin: 2rem 0; 
+        color: var(--glitch-color1); 
+        text-shadow: 0 0 10px var(--glitch-color1); 
+        text-transform: uppercase; 
+        letter-spacing: 3px;
+      }
+      
+      @keyframes pulse {
+        from {
+          opacity: 0.7;
+        }
+        to {
+          opacity: 1;
+        }
       }
       
       @keyframes glitch-border {
@@ -43,4 +125,13 @@
         20% { clip-path: inset(0 0 0 30%); }
         25% { clip-path: inset(0 0 0 0); }
         100% { clip-path: inset(0 0 0 0); }
+      }
+      
+      @keyframes scanline {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(100%);
+        }
       }

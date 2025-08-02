@@ -1,0 +1,306 @@
+.contact-section {
+  margin: 4rem auto;
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.contact-section h3 {
+  text-align: center; 
+  font-size: 2rem; 
+  margin: 2rem 0; 
+  color: var(--glitch-color1); 
+  text-shadow: 0 0 10px var(--glitch-color1); 
+  text-transform: uppercase; 
+  letter-spacing: 3px;
+}
+
+.contact-frame {
+  margin: 1.5rem auto;
+  aspect-ratio: auto;
+  height: auto;
+  position: relative;
+  overflow: visible;
+  background-color: rgba(10, 15, 20, 0.8);
+  padding: 0;
+  border: 1px solid var(--glitch-color1);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.contact-frame:before {
+  content: "// SECURE TRANSMISSION";
+  position: absolute;
+  top: -25px;
+  left: 10px;
+  font-size: 0.8rem;
+  color: var(--glitch-color1);
+  text-shadow: 0 0 5px var(--glitch-color1);
+}
+
+.contact-frame:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--glitch-color1);
+  pointer-events: none;
+  animation: glitch-border 2s infinite;
+  z-index: 5;
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 15px;
+  background-color: rgba(20, 30, 40, 0.9);
+  border-bottom: 1px solid var(--glitch-color1);
+}
+
+.terminal-title {
+  color: var(--glitch-color1);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.control-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--glitch-color2);
+  opacity: 0.7;
+}
+
+.control-btn:first-child {
+  background: #ff5f56;
+}
+
+.control-btn:nth-child(2) {
+  background: #ffbd2e;
+}
+
+.control-btn:last-child {
+  background: #27c93f;
+}
+
+.form-container {
+  position: relative;
+  width: 100%;
+  padding: 0;
+}
+
+.form-wrapper {
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.glitch-form {
+  position: relative;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px dashed rgba(0, 255, 255, 0.3);
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--glitch-color1);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px var(--glitch-color1);
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 15px;
+  background-color: rgba(20, 30, 40, 0.6);
+  border: 1px solid var(--glitch-color1);
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--glitch-color2);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.input-glitch-effect,
+.textarea-glitch-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.form-control:focus ~ .input-glitch-effect:after,
+.form-control:focus ~ .textarea-glitch-effect:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: 2px solid var(--glitch-color2);
+  animation: glitch-input 1s infinite;
+}
+
+@keyframes glitch-input {
+  0% { 
+    clip-path: inset(0 0 0 0); 
+    transform: translate(0, 0);
+  }
+  20% { 
+    clip-path: inset(20% 0 0 0); 
+    transform: translate(-2px, 2px);
+  }
+  40% { 
+    clip-path: inset(0 10% 0 0); 
+    transform: translate(2px, -2px);
+  }
+  60% { 
+    clip-path: inset(0 0 10% 0); 
+    transform: translate(-2px, -2px);
+  }
+  80% { 
+    clip-path: inset(0 0 0 10%); 
+    transform: translate(2px, 2px);
+  }
+  100% { 
+    clip-path: inset(0 0 0 0); 
+    transform: translate(0, 0);
+  }
+}
+
+.form-btn {
+  margin-top: 15px;
+  padding: 12px 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-btn:after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(90deg, var(--glitch-color1), var(--glitch-color2));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.form-btn:hover:after {
+  opacity: 0.6;
+  animation: glitch-btn 1s infinite;
+}
+
+@keyframes glitch-btn {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-3px, 3px);
+  }
+  20% {
+    transform: translate(3px, -3px);
+  }
+  30% {
+    transform: translate(-3px, -3px);
+  }
+  40% {
+    transform: translate(3px, 3px);
+  }
+  50% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Add some CRT effects */
+.contact-frame .crt-overlay {
+  opacity: 0.2;
+}
+
+.contact-frame .crt-scanline {
+  opacity: 0.3;
+  animation: scanline 6s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* Glitch animation when submitting */
+.glitch-form.submitting .form-control {
+  animation: form-glitch 0.5s infinite;
+}
+
+@keyframes form-glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(2px, -2px);
+  }
+  60% {
+    transform: translate(-2px, -2px);
+  }
+  80% {
+    transform: translate(2px, 2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact-section {
+    width: 95%;
+  }
+  
+  .form-wrapper {
+    padding: 15px 10px;
+  }
+}

@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="BITKILL Official Website">
 <meta property="og:title" content="BITKILL - Cyberpunk Electronic Music">
 <meta property="og:description" content="Experience BITKILL's unique blend of cybercore and glitchcore electronic music. NEXUS OUT NOW!">
-<meta property="og:image" content="https://media.xperia.pt/bitkill/img/favicon.jpg">
+<meta property="og:image" content="/favicon.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -28,15 +28,12 @@
 <meta name="twitter:url" content="https://bitkillmusic.com/">
 <meta name="twitter:title" content="BITKILL - Cyberpunk Electronic Music">
 <meta name="twitter:description" content="Experience BITKILL's unique blend of cybercore and glitchcore electronic music. NEXUS OUT NOW!">
-<meta name="twitter:image" content="https://media.xperia.pt/bitkill/img/favicon.jpg">
+<meta name="twitter:image" content="/favicon.jpg">
 <meta name="twitter:image:alt" content="BITKILL Official Artwork">
 
 <!-- Canonical URL -->
 <link rel="canonical" href="https://bitkillmusic.com/">
 <!-- DNS Prefetch and Preconnect -->
-
-<link rel="dns-prefetch" href="//assets.xperia.pt">
-<link rel="preconnect" href="https://assets.xperia.pt "crossorigin>
 
 <link rel="dns-prefetch" href="//media.xperia.pt">
 <link rel="preconnect" href="https://media.xperia.pt" crossorigin>
@@ -44,26 +41,14 @@
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 
-<link rel="dns-prefetch" href="//fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.googleapis.com "crossorigin>
-  
-<link rel="dns-prefetch" href="//embed-cdn.spotifycdn.com">
-<link rel="preconnect" href="https://embed-cdn.spotifycdn.com" crossorigin>
+<link rel="dns-prefetch" href="//embed.music.apple.com">
+<link rel="preconnect" href="embed.music.apple.com"crossorigin>
 
-<link rel="dns-prefetch" href="//spclient.wg.spotify.com">
-<link rel="preconnect" href="https://spclient.wg.spotify.com" crossorigin>
+<link rel="dns-prefetch" href="//js-cdn.music.apple.com">
+<link rel="preconnect" href="js-cdn.music.apple.com"crossorigin>
 
-<link rel="dns-prefetch" href="//gew1-spclient.spotify.com">
-<link rel="preconnect" href="https://gew1-spclient.spotify.com "crossorigin>
-
-<link rel="dns-prefetch" href="//open.spotify.com">
-<link rel="preconnect" href="https://open.spotify.com "crossorigin>
-
-<link rel="dns-prefetch" href="//player.spotify.com">
-<link rel="preconnect" href="https://player.spotify.com "crossorigin>
-	
   <title>BitKill // music</title>
-  <link rel="icon" type="image/png" href="https://media.xperia.pt/bitkill/img/favicon.jpg" />
+  <link rel="icon" type="image/png" href="/favicon.jpg" />
   <link href="https://assets.xperia.pt/npm/aos.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   
@@ -73,7 +58,8 @@
   <link href="assets/css/cyber-footer.css" rel="stylesheet" />
   <link href="assets/css/music-demos.css" rel="stylesheet" />
   <link href="assets/css/sound-buttons.css" rel="stylesheet" />
-
+  <link href="assets/css/contact-form.css" rel="stylesheet" />
+  
 </head>
 <body>
   <canvas id="audio-vis"></canvas>
@@ -152,30 +138,28 @@
     <div class="sound-label">ACTIVATE SOUND</div>
   </div>
 
-
-
   <section class="music-demos" data-aos="fade-up">
     <h3 style="text-align: center; font-size: 2rem; margin: 2rem 0; color: var(--glitch-color1); text-shadow: 0 0 10px var(--glitch-color1); text-transform: uppercase; letter-spacing: 3px;">MUSIC DEMOS</h3>
-    <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
-      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/0cj2YzzjFGiIjKwauHAWYm?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="BitKill Track 1"></iframe>
+    <div class="crt-frame apple-music-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
+      <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="50" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/song/awakening/1808167284?theme=dark" title="BitKill - Awakening"></iframe>
       <div class="crt-overlay"></div>
       <div class="crt-scanline"></div>
     </div>
     
-    <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
-      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/0OTTKPvVTvUlE9umTfxx9v?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="BitKill Track 2"></iframe>
+    <div class="crt-frame apple-music-frame featured" data-aos="zoom-in" data-tilt data-tilt-max="5">
+      <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="50" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/song/nexus/1828139962?theme=dark" title="BitKill - Nexus (Latest Release)"></iframe>
       <div class="crt-overlay"></div>
       <div class="crt-scanline"></div>
     </div>
     
-    <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
-      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/5P73XBhsBYmWllPk2JCdI9?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="BitKill Track 3"></iframe>
+    <div class="crt-frame apple-music-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
+      <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="50" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/song/keygen/1798908037?theme=dark" title="BitKill - Keygen"></iframe>
       <div class="crt-overlay"></div>
       <div class="crt-scanline"></div>
     </div>
     
-    <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
-      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/3JdCKLjjYkblDl0fBI3koy?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="BitKill Track 4"></iframe>
+    <div class="crt-frame apple-music-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
+      <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="50" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/song/aero/1808218491?theme=dark" title="BitKill - Aero"></iframe>
       <div class="crt-overlay"></div>
       <div class="crt-scanline"></div>
     </div>
@@ -183,19 +167,19 @@
    </section>
 
   <!-- Animation Libraries -->
-  <script src="https://assets.xperia.pt/npm/aos.js"></script>
-  <script src="https://assets.xperia.pt/npm/gsap.min.js"></script>
-  <script src="https://assets.xperia.pt/npm/ScrollTrigger.min.js"></script>
-  <script src="https://assets.xperia.pt/npm/vanilla-tilt.min.js"></script>
-  <script src="https://assets.xperia.pt/npm/typed.min.js"></script>
+  <script src="assets/npm/aos.js"></script>
+  <script src="assets/npm/gsap.min.js"></script>
+  <script src="assets/npm/ScrollTrigger.min.js"></script>
+  <script src="assets/npm/vanilla-tilt.min.js"></script>
+  <script src="assets/npm/typed.min.js"></script>
  
   <!-- Three.js libraries -->
-  <script src="https://assets.xperia.pt/npm/three.min.js"></script>
-  <script src="https://assets.xperia.pt/npm/EffectComposer.min.js"></script>
-  <script src="https://assets.xperia.pt/npm/RenderPass.min.js"></script>
-  <script src="https://assets.xperia.pt/npm/ShaderPass.min.js"></script>
-  <script src="https://assets.xperia.pt/npm/DigitalGlitch.js"></script>
-  <script src="https://assets.xperia.pt/npm/GlitchPass.min.js"></script>
+  <script src="assets/three.js/three.min.js"></script>
+  <script src="assets/three.js/EffectComposer.min.js"></script>
+  <script src="assets/three.js/RenderPass.min.js"></script>
+  <script src="assets/three.js/ShaderPass.min.js"></script>
+  <script src="assets/three.js/DigitalGlitch.js"></script>
+  <script src="assets/three.js/GlitchPass.min.js"></script>
 
   <!-- Main Scripts -->
 	<script src="assets/js/first-input.js"></script>
@@ -204,6 +188,8 @@
 	<script src="assets/js/visualizer-engine.js"></script>
 	<script src="assets/js/sound-input.js"></script>
 	<script src="assets/js/wallpaper-engine.js"></script>
+  <script src="assets/js/formoid.min.js"></script>
+  <script src="assets/js/contact-form.js"></script>
 
   <!-- Service Worker Registration -->
   <script src="assets/js/service-worker-registration.js"></script>

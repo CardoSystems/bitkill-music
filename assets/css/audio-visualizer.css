@@ -5,6 +5,11 @@
       text-align: center;
     }
     
+    .visualizer-container h2.glitch-title {
+      font-size: 2rem; 
+      margin: 2rem 0;
+    }
+    
     .visualizer-frame {
       height: 250px; /* Increased height */
       position: relative;
