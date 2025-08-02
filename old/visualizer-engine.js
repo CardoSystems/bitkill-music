@@ -1,7 +1,7 @@
     // Audio Oscilloscope Visualizer
     document.addEventListener('DOMContentLoaded', function() {
       const canvas = document.getElementById('oscilloscope');
-      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      const ctx = canvas.getContext('2d');
       
       // Setup canvas size
       function resizeCanvas() {
@@ -11,25 +11,6 @@
       
       resizeCanvas();
       window.addEventListener('resize', resizeCanvas);
-      
-      // Helper function to convert CSS variables to real colors
-      function getCssColor(colorVar) {
-        // If it's already a valid color format, return as is
-        if (colorVar.startsWith('#') || 
-            colorVar.startsWith('rgb') || 
-            colorVar.startsWith('hsl')) {
-          return colorVar;
-        }
-        
-        // Map CSS variables to their hex values
-        const colorMap = {
-          'var(--glitch-color1)': '#0ff', // Cyan
-          'var(--glitch-color2)': '#f0f', // Magenta
-          'var(--glitch-color3)': '#0f0'  // Green
-        };
-        
-        return colorMap[colorVar] || '#0ff'; // Default to cyan if not found
-      }
       
       // Audio context setup
       let audioContext;
@@ -170,7 +151,7 @@
       // Draw standard waveform
       function drawWaveform() {
         ctx.lineWidth = 2;
-        ctx.strokeStyle = getCssColor('#0ff'); // Match website cyan color (--glitch-color1)
+        ctx.strokeStyle = 'var(--glitch-color1)'; // Match website cyan color
         ctx.beginPath();
         
         const sliceWidth = canvas.width / dataArray.length;
@@ -198,7 +179,7 @@
         const centerY = canvas.height / 2;
         const radius = Math.min(canvas.width, canvas.height) / 3;
         
-        ctx.strokeStyle = getCssColor('#f0f'); // Pink color (--glitch-color2)
+        ctx.strokeStyle = 'var(--glitch-color2)'; // Pink color
         ctx.lineWidth = 2;
         ctx.beginPath();
         
@@ -229,14 +210,8 @@
           
           // Gradient based on bar height
           const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
-          try {
-            gradient.addColorStop(0, getCssColor('#0f0')); // Green at top (--glitch-color3)
-            gradient.addColorStop(1, getCssColor('#0ff')); // Cyan at bottom (--glitch-color1)
-          } catch (e) {
-            console.log('Gradient error handled:', e.message);
-            // Fallback to solid color
-            ctx.fillStyle = '#0ff';
-          }
+          gradient.addColorStop(0, 'var(--glitch-color3)'); // Green at top
+          gradient.addColorStop(1, 'var(--glitch-color1)'); // Cyan at bottom
           
           ctx.fillStyle = gradient;
           ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
@@ -267,32 +242,26 @@
       
       // Add glitch effect
       function addGlitchEffect() {
-        // Ensure height is never zero
-        const glitchHeight = Math.max(1, Math.random() * canvas.height);
+        const glitchHeight = Math.random() * canvas.height;
         const glitchWidth = canvas.width;
-        const glitchY = Math.random() * (canvas.height - glitchHeight);
+        const glitchY = Math.random() * canvas.height;
         
-        try {
-          // Get image data from canvas
-          const imageData = ctx.getImageData(0, glitchY, glitchWidth, glitchHeight);
-          const data = imageData.data;
-          
-          // Shift color channels
-          for (let i = 0; i < data.length; i += 4) {
-            if (Math.random() > 0.5) {
-              // Swap R and B channels
-              const temp = data[i];
-              data[i] = data[i + 2];
-              data[i + 2] = temp;
-            }
+        // Get image data from canvas
+        const imageData = ctx.getImageData(0, glitchY, glitchWidth, glitchHeight);
+        const data = imageData.data;
+        
+        // Shift color channels
+        for (let i = 0; i < data.length; i += 4) {
+          if (Math.random() > 0.5) {
+            // Swap R and B channels
+            const temp = data[i];
+            data[i] = data[i + 2];
+            data[i + 2] = temp;
           }
-          
-          // Put the manipulated image data back
-          ctx.putImageData(imageData, 0, glitchY);
-        } catch (e) {
-          console.log('Glitch effect error handled:', e.message);
-          // If getImageData fails, just draw the glitch line
         }
+        
+        // Put the manipulated image data back
+        ctx.putImageData(imageData, 0, glitchY);
         
         // Draw horizontal glitch lines
         ctx.strokeStyle = `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 0.8)`;
@@ -348,7 +317,7 @@
       });
       
       // Display initial message
-      ctx.fillStyle = getCssColor('#0ff'); // Cyan color (--glitch-color1)
+      ctx.fillStyle = 'var(--glitch-color1)';
       ctx.font = '16px "Share Tech Mono"';
       ctx.textAlign = 'center';
       ctx.fillText('INITIALIZING NEURAL OSCILLATOR...', canvas.width / 2, canvas.height / 2 - 10);
