@@ -1,0 +1,44 @@
+.visualizer-container {
+      margin: 4rem auto;
+      width: 100%;
+      max-width: 1000px; /* Increased width */
+      text-align: center;
+    }
+    
+    .visualizer-frame {
+      height: 250px; /* Increased height */
+      position: relative;
+      overflow: hidden;
+    }
+    
+    #oscilloscope {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .visualizer-frame:before {
+      content: "// NEURAL OSCILLATOR";
+      position: absolute;
+      top: -25px;
+      left: 10px;
+      font-size: 0.8rem;
+      color: var(--glitch-color3);
+      text-shadow: 0 0 5px var(--glitch-color3);
+      z-index: 10;
+    }
+    
+    .visualizer-controls {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 0.7rem;
+      color: var(--glitch-color1);
+      text-shadow: 0 0 5px var(--glitch-color1);
+      z-index: 10;
+      opacity: 0.8;
+    }
+    
+    .control-highlight {
+      color: var(--glitch-color3);
+    }
