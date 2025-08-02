@@ -55,6 +55,13 @@
   <link rel="icon" type="image/png" href="https://media.xperia.pt/bitkill/img/favicon.jpg" />
   <link href="https://assets.xperia.pt/npm/aos.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <!-- Site CSS -->
+  <link href="assets/css/main-styles.css" rel="stylesheet" />
+  <link href="assets/css/audio-visualizer.css" rel="stylesheet" />
+  <link href="assets/css/cyber-footer.css" rel="stylesheet" />
+  <link href="assets/css/music-demos.css" rel="stylesheet" />
+  <link href="assets/css/sound-buttons.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -82,8 +89,8 @@
     <button class="interactive-btn" id="play-audio">PLAY AUDIO</button>
     <button class="interactive-btn" id="stop-audio">STOP AUDIO</button>
     <div class="audio-controls">
-      <span>VOL</span>
-      <input type="range" min="0" max="1" step="0.1" value="0.5" class="volume-slider" id="volume">
+      <label for="volume">VOL</label>
+      <input type="range" min="0" max="1" step="0.1" value="0.5" class="volume-slider" id="volume" aria-label="Volume Control">
     </div>
   </section>
 
@@ -136,28 +143,28 @@
 
 
 
-  <section class="music-demos" data-aos="fade-up"></section>
+  <section class="music-demos" data-aos="fade-up">
     <h3 style="text-align: center; font-size: 2rem; margin: 2rem 0; color: var(--glitch-color1); text-shadow: 0 0 10px var(--glitch-color1); text-transform: uppercase; letter-spacing: 3px;">MUSIC DEMOS</h3>
     <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
-      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/0cj2YzzjFGiIjKwauHAWYm?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/0cj2YzzjFGiIjKwauHAWYm?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="BitKill Track 1"></iframe>
       <div class="crt-overlay"></div>
       <div class="crt-scanline"></div>
     </div>
     
     <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
-      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/0OTTKPvVTvUlE9umTfxx9v?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/0OTTKPvVTvUlE9umTfxx9v?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="BitKill Track 2"></iframe>
       <div class="crt-overlay"></div>
       <div class="crt-scanline"></div>
     </div>
     
     <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
-      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/5P73XBhsBYmWllPk2JCdI9?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/5P73XBhsBYmWllPk2JCdI9?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="BitKill Track 3"></iframe>
       <div class="crt-overlay"></div>
       <div class="crt-scanline"></div>
     </div>
     
     <div class="crt-frame spotify-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
-      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/3JdCKLjjYkblDl0fBI3koy?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://player.spotify.com/embed/track/3JdCKLjjYkblDl0fBI3koy?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="BitKill Track 4"></iframe>
       <div class="crt-overlay"></div>
       <div class="crt-scanline"></div>
     </div>
@@ -180,12 +187,12 @@
   <script src="https://assets.xperia.pt/npm/GlitchPass.min.js"></script>
 
   <!-- Main Scripts -->
-	<script src="/assets/js/first-input.js"></script>
-	<script src="/assets/js/footer-glitch.js"></script>
-	<script src="/assets/js/glitch-engine.js"></script>
-	<script src="/assets/js/visualizer-engine.js"></script>
-	<script src="/assets/js/sound-input.js"></script>
-	<script src="/assets/js/wallpaper-engine.js"></script>
+	<script src="assets/js/first-input.js"></script>
+	<script src="assets/js/footer-glitch.js"></script>
+	<script src="assets/js/glitch-engine.js"></script>
+	<script src="assets/js/visualizer-engine.js"></script>
+	<script src="assets/js/sound-input.js"></script>
+	<script src="assets/js/wallpaper-engine.js"></script>
 
 
   <!-- Audio Oscillator Visualizer -->
@@ -250,6 +257,7 @@
         <p class="webmaster">WEBMASTER: <a href="mailto:bitkill@ipv7.pt" class="glitch-text small">bitkill@ipv7.pt</a></p>
         <p class="author">Website designed by <span class="glitch-text small" data-text="Diogo Cardoso">Diogo Cardoso</span></p>
       </div>
-
+    </div>
+  </footer>
 </body>
-</html></video></section></div>
+</html>
