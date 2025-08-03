@@ -17,7 +17,7 @@ const CORE_ASSETS = [
   '/assets/js/glitch-engine.js',
   '/assets/js/visualizer-engine.js',
   '/assets/js/sound-input.js',
-  '/assets/js/wallpaper-engine.js',
+  '/assets/js/mono-engine.js',
   '/assets/js/service-worker-registration.js',
   'assets/npm/aos.css',
   'assets/npm/aos.js',
@@ -36,7 +36,7 @@ const CORE_ASSETS = [
 
 // Media files to cache for offline viewing
 const MEDIA_ASSETS = [
-  'https://media.xperia.pt/bitkill/img/favicon.jpg',
+  '/favicon.jpg',
   'https://media.xperia.pt/bitkill/vod/vod1.mp4',
   'https://media.xperia.pt/bitkill/vod/vod2.mp4',
   'https://media.xperia.pt/bitkill/vod/vod3.mp4',
