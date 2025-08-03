@@ -63,6 +63,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
+      // Check if we're running from a local file
+      if (window.location.protocol === 'file:') {
+        e.preventDefault(); // Prevent form submission
+        playGlitchSound('error');
+        showFormMessage('ERROR: MUST ACCESS VIA WEB SERVER', 'error');
+        console.error('FormSubmit requires the page to be served from a web server, not accessed as a file.');
+        return;
+      }
+      
       // Add submitting class for glitch animation
       form.classList.add('submitting');
       
