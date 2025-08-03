@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Form submission with glitch effect
     form.addEventListener('submit', function(e) {
+      // Always prevent default to handle submission with AJAX
+      e.preventDefault();
+      
       // Validate form fields before submission
       const name = form.querySelector('input[name="name"]').value.trim();
       const email = form.querySelector('input[name="email"]').value.trim();
@@ -39,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Check if any required field is empty
       if (!name || !email || !message) {
-        e.preventDefault(); // Prevent form submission if validation fails
         playGlitchSound('error');
         const alertDanger = form.querySelector('[data-form-alert-danger]');
         if (alertDanger) {
@@ -63,15 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Check if we're running from a local file
-      if (window.location.protocol === 'file:') {
-        e.preventDefault(); // Prevent form submission
-        playGlitchSound('error');
-        showFormMessage('ERROR: MUST ACCESS VIA WEB SERVER', 'error');
-        console.error('FormSubmit requires the page to be served from a web server, not accessed as a file.');
-        return;
-      }
-      
       // Add submitting class for glitch animation
       form.classList.add('submitting');
       
@@ -82,15 +75,85 @@ document.addEventListener('DOMContentLoaded', function() {
       const submitBtn = form.querySelector('.form-btn');
       const originalText = submitBtn.textContent;
       submitBtn.textContent = 'PROCESSING...';
+      submitBtn.disabled = true;
       
       // Create and show glitch overlay
       showGlitchOverlay();
+
+      // Prepare form data for submission
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => {
+        // Skip the honeypot field
+        if (key !== '_honey') {
+          data[key] = value;
+        }
+      });
       
-      // Set timeout for visual effect, then submit the form naturally
-      setTimeout(function() {
-        // Continue with natural form submission to FormSubmit
-        // The setTimeout doesn't actually prevent submission, but creates a visual delay
-      }, 2000);
+      // Add additional FormSubmit configuration
+      data._subject = "New Neural Link From BITKILL Website";
+      data._template = "table";
+      data._captcha = "false";
+      
+      // Submit the form using fetch API
+      fetch('https://formsubmit.co/ajax/bitkillmusic@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Success handling
+        console.log('Success:', data);
+        
+        // Show success message
+        const alertSuccess = form.querySelector('[data-form-alert]');
+        if (alertSuccess) {
+          alertSuccess.removeAttribute('hidden');
+          setTimeout(() => {
+            alertSuccess.setAttribute('hidden', 'hidden');
+          }, 5000);
+        } else {
+          showFormMessage('TRANSMISSION COMPLETE', 'success');
+        }
+        
+        // Reset the form
+        form.reset();
+        
+        // Remove overlay and reset button
+        setTimeout(() => {
+          removeGlitchOverlay();
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          form.classList.remove('submitting');
+        }, 2000);
+      })
+      .catch(error => {
+        // Error handling
+        console.error('Error:', error);
+        
+        // Show error message
+        const alertDanger = form.querySelector('[data-form-alert-danger]');
+        if (alertDanger) {
+          alertDanger.removeAttribute('hidden');
+          setTimeout(() => {
+            alertDanger.setAttribute('hidden', 'hidden');
+          }, 5000);
+        } else {
+          showFormMessage('ERROR: TRANSMISSION FAILED', 'error');
+        }
+        
+        // Remove overlay and reset button
+        setTimeout(() => {
+          removeGlitchOverlay();
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          form.classList.remove('submitting');
+        }, 2000);
+      });
     });
     
     // Check for success parameter in URL (for when returning from FormSubmit)
