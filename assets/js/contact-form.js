@@ -32,7 +32,36 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Form submission with glitch effect
     form.addEventListener('submit', function(e) {
-      e.preventDefault();
+      // Validate form fields before submission
+      const name = form.querySelector('input[name="name"]').value.trim();
+      const email = form.querySelector('input[name="email"]').value.trim();
+      const message = form.querySelector('textarea[name="message"]').value.trim();
+      
+      // Check if any required field is empty
+      if (!name || !email || !message) {
+        e.preventDefault(); // Prevent form submission if validation fails
+        playGlitchSound('error');
+        const alertDanger = form.querySelector('[data-form-alert-danger]');
+        if (alertDanger) {
+          alertDanger.removeAttribute('hidden');
+          setTimeout(() => {
+            alertDanger.setAttribute('hidden', 'hidden');
+          }, 5000);
+        } else {
+          showFormMessage('ERROR: ALL FIELDS REQUIRED', 'error');
+        }
+        
+        // Highlight empty fields with glitch effect
+        formControls.forEach(control => {
+          if (!control.value.trim()) {
+            control.classList.add('error-glitch');
+            setTimeout(() => {
+              control.classList.remove('error-glitch');
+            }, 1000);
+          }
+        });
+        return;
+      }
       
       // Add submitting class for glitch animation
       form.classList.add('submitting');
@@ -48,39 +77,28 @@ document.addEventListener('DOMContentLoaded', function() {
       // Create and show glitch overlay
       showGlitchOverlay();
       
-      // Fake processing delay
+      // Set timeout for visual effect, then submit the form naturally
       setTimeout(function() {
-        // Submit the form data using fetch
-        const formData = new FormData(form);
-        
-        fetch(form.action, {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Show success message
-          showFormMessage('TRANSMISSION COMPLETE', 'success');
-          form.reset();
-        })
-        .catch(error => {
-          // Show error message
-          showFormMessage('TRANSMISSION FAILED: RETRY', 'error');
-          console.error('Error:', error);
-        })
-        .finally(() => {
-          // Remove submitting class
-          form.classList.remove('submitting');
-          submitBtn.textContent = originalText;
-          removeGlitchOverlay();
-        });
+        // Continue with natural form submission to FormSubmit
+        // The setTimeout doesn't actually prevent submission, but creates a visual delay
       }, 2000);
     });
+    
+    // Check for success parameter in URL (for when returning from FormSubmit)
+    if (window.location.search.includes('success=true')) {
+      // Show success message
+      const alertSuccess = form.querySelector('[data-form-alert]');
+      if (alertSuccess) {
+        alertSuccess.removeAttribute('hidden');
+        setTimeout(() => {
+          alertSuccess.setAttribute('hidden', 'hidden');
+        }, 5000);
+      } else {
+        showFormMessage('TRANSMISSION COMPLETE', 'success');
+      }
+      // Clear the URL parameter
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
   }
   
   // Function to play glitch sounds
@@ -120,6 +138,20 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         oscillator.stop();
       }, 500);
+    } else if (type === 'error') {
+      oscillator.type = 'square';
+      gainNode.gain.value = 0.1;
+      
+      // Error sound (alternating frequencies)
+      oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+      oscillator.frequency.setValueAtTime(110, audioContext.currentTime + 0.2);
+      oscillator.frequency.setValueAtTime(220, audioContext.currentTime + 0.4);
+      
+      // Start and stop
+      oscillator.start();
+      setTimeout(() => {
+        oscillator.stop();
+      }, 600);
     }
   }
   
@@ -171,6 +203,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
       overlay.appendChild(glitchLine);
     }
+    
+    // Remove overlay after the form has been submitted (in case it doesn't redirect immediately)
+    setTimeout(() => {
+      removeGlitchOverlay();
+    }, 5000);
   }
   
   // Function to remove glitch overlay
@@ -253,6 +290,21 @@ document.addEventListener('DOMContentLoaded', function() {
       border-color: #ff0055;
       color: #ff0055;
       background-color: rgba(255, 0, 85, 0.1);
+    }
+    
+    .error-glitch {
+      animation: error-input-glitch 0.5s ease-in-out;
+      border-color: #ff0055 !important;
+      box-shadow: 0 0 10px rgba(255, 0, 85, 0.5) !important;
+    }
+    
+    @keyframes error-input-glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-5px, 0); background-color: rgba(255, 0, 85, 0.2); }
+      40% { transform: translate(5px, 0); }
+      60% { transform: translate(-5px, 0); background-color: rgba(255, 0, 85, 0.2); }
+      80% { transform: translate(5px, 0); }
+      100% { transform: translate(0); }
     }
     
     @keyframes text-glitch {

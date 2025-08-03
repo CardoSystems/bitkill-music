@@ -25,6 +25,7 @@
   padding: 0;
   border: 1px solid var(--glitch-color1);
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  max-width: 100%;
 }
 
 .contact-frame:before {
@@ -110,6 +111,44 @@
   border: 1px dashed rgba(0, 255, 255, 0.3);
 }
 
+/* Formoid specific styles */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  justify-content: center;
+}
+
+.dragArea.row {
+  display: block;
+  max-width: 100%;
+}
+
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  font-family: 'Share Tech Mono', monospace;
+  text-transform: uppercase;
+}
+
+.alert-success {
+  color: var(--glitch-color1);
+  background-color: rgba(0, 255, 255, 0.1);
+  border-color: var(--glitch-color1);
+  text-shadow: 0 0 5px var(--glitch-color1);
+}
+
+.alert-danger {
+  color: #ff0055;
+  background-color: rgba(255, 0, 85, 0.1);
+  border-color: #ff0055;
+  text-shadow: 0 0 5px rgba(255, 0, 85, 0.5);
+}
+
 .form-group {
   position: relative;
   margin-bottom: 20px;
@@ -144,10 +183,17 @@
   box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
 }
 
+.form-control.error {
+  border-color: #ff0055;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+}
+
 .form-control::placeholder {
   color: rgba(255, 255, 255, 0.5);
   font-family: 'Share Tech Mono', monospace;
 }
+
+/* Removed unused captcha styling */
 
 .input-glitch-effect,
 .textarea-glitch-effect {
@@ -223,6 +269,64 @@
 .form-btn:hover:after {
   opacity: 0.6;
   animation: glitch-btn 1s infinite;
+}
+
+/* Form message styling */
+.form-message {
+  margin-top: 15px;
+  padding: 12px;
+  border: 1px solid;
+  font-family: 'Share Tech Mono', monospace;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: message-appear 0.3s forwards;
+}
+
+.form-message:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 100%);
+  transform: translateX(-100%);
+  animation: message-shine 2s infinite;
+}
+
+.form-message.success {
+  border-color: var(--glitch-color1);
+  color: var(--glitch-color1);
+  background-color: rgba(0, 255, 255, 0.1);
+}
+
+.form-message.error {
+  border-color: #ff0055;
+  color: #ff0055;
+  background-color: rgba(255, 0, 85, 0.1);
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(255, 0, 85, 0.5);
+}
+
+@keyframes message-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes message-shine {
+  0% { transform: translateX(-100%); }
+  20% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
 }
 
 @keyframes glitch-btn {
