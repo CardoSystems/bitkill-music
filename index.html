@@ -236,7 +236,7 @@
         
         <div class="form-wrapper">
           <div class="mbr-form">
-            <form action="https://formsubmit.co/ajax/bitkillmusic@gmail.com" method="POST" class="glitch-form form-with-styler" id="contact-form" enctype="multipart/form-data">
+            <form action="https://api.web3forms.com/submit" method="POST" class="glitch-form form-with-styler" id="contact-form" enctype="multipart/form-data">
               <div class="row">
                 <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">TRANSMISSION COMPLETE</div>
                 <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
@@ -244,14 +244,13 @@
                 </div>
               </div>
               <div class="dragArea row">
-                <!-- FormSubmit Configuration -->
-                <input type="hidden" name="_subject" value="New Neural Link From BITKILL Website">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value="https://bitkillmusic.com?success=true">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_autoresponse" value="Your message has been received by BITKILL. Neural link established.">
+                <!-- Web3Forms Configuration -->
+                <input type="hidden" name="access_key" value="51e7bbcb-cf45-469d-aab1-0e89a35ea4aa">
+                <input type="hidden" name="subject" value="New Neural Link From BITKILL Website">
+                <input type="hidden" name="from_name" value="BITKILL Website">
+                <input type="hidden" name="redirect" value="https://bitkillmusic.com?success=true">
                 <!-- Honeypot field to prevent spam -->
-                <input type="text" name="_honey" class="honeypot-field" title="Do not fill this field" aria-hidden="true" tabindex="-1">
+                <input type="text" name="botcheck" class="honeypot-field" title="Do not fill this field" aria-hidden="true" tabindex="-1">
                 
                 <div class="form-group">
                   <label class="form-label">[ID]:</label>

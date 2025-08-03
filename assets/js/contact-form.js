@@ -85,18 +85,13 @@ document.addEventListener('DOMContentLoaded', function() {
       const data = {};
       formData.forEach((value, key) => {
         // Skip the honeypot field
-        if (key !== '_honey') {
+        if (key !== 'botcheck') {
           data[key] = value;
         }
       });
       
-      // Add additional FormSubmit configuration
-      data._subject = "New Neural Link From BITKILL Website";
-      data._template = "table";
-      data._captcha = "false";
-      
       // Submit the form using fetch API
-      fetch('https://formsubmit.co/ajax/bitkillmusic@gmail.com', {
+      fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -156,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    // Check for success parameter in URL (for when returning from FormSubmit)
+    // Check for success parameter in URL (for when returning from Web3Forms)
     if (window.location.search.includes('success=true')) {
       // Show success message
       const alertSuccess = form.querySelector('[data-form-alert]');
