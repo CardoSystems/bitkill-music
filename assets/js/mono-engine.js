@@ -74,7 +74,7 @@
     let isGlitchIntense = false;
     
     function animate() {
-      requestAnimationFrame(animate);
+      window.animationFrameId = requestAnimationFrame(animate);
       
       // Update particle positions to float around
       const positions = particleGeometry.attributes.position.array;

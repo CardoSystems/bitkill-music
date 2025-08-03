@@ -69,8 +69,8 @@
     let isGlitchIntense = false;
     
     function animate() {
-      requestAnimationFrame(animate);
-      
+      window.animationFrameId = requestAnimationFrame(animate);
+          
       // Rotate particles
       particles.rotation.x += 0.001;
       particles.rotation.y += 0.002;
