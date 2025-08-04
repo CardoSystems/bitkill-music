@@ -20,7 +20,6 @@ const CORE_ASSETS = [
   '/assets/js/sound-input.js',
   '/assets/js/mono-engine.js',
   '/assets/js/service-worker-registration.js',
-  '/assets/js/sound-manager.js',
   'assets/npm/aos.css',
   'assets/npm/aos.js',
   'assets/npm/gsap.min.js',
