@@ -16,6 +16,7 @@ const CORE_ASSETS = [
   '/assets/js/footer-glitch.js',
   '/assets/js/glitch-engine.js',
   '/assets/js/visualizer-engine.js',
+  '/assets/js/mono-engine.js',
   '/assets/js/sound-input.js',
   '/assets/js/mono-engine.js',
   '/assets/js/service-worker-registration.js',
@@ -40,7 +41,8 @@ const MEDIA_ASSETS = [
   'https://media.xperia.pt/bitkill/vod/vod1.mp4',
   'https://media.xperia.pt/bitkill/vod/vod2.mp4',
   'https://media.xperia.pt/bitkill/vod/vod3.mp4',
-  'https://media.xperia.pt/bitkill/vod/vod4.mp4'
+  'https://media.xperia.pt/bitkill/vod/vod4.mp4',
+  'https://media.xperia.pt/bitkill/vod/vod5.mp4'
 ];
 
 // Install event - cache core assets
@@ -100,8 +102,8 @@ function isMediaRequest(url) {
 function isAPIRequest(url) {
   return url.hostname.includes('api.') || 
          url.pathname.includes('/api/') ||
-         url.hostname.includes('spclient.wg.spotify.com') ||
-         url.hostname.includes('open.spotify.com');
+         url.hostname.includes('js-cdn.music.apple.com') ||
+         url.hostname.includes('embed.music.apple.com');
 }
 
 // Fetch event - network-first for APIs, cache-first for assets
