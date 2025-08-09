@@ -1,7 +1,7 @@
 :root {
-      --glitch-color1: #0ff;
-      --glitch-color2: #f0f;
-      --glitch-color3: #0f0;
+      --glitch-color1: #ffffff;
+      --glitch-color2: #aaaaaa;
+      --glitch-color3: #555555;
     }
     
     body {
@@ -10,7 +10,7 @@
       background: black;
       color: var(--glitch-color1);
       overflow-x: hidden;
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%230ff" stroke-width="2"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>'), auto;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23ffffff" stroke-width="2"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>'), auto;
     }
     
     /* CRT Effect */
@@ -58,11 +58,20 @@
       position: relative;
     }
     
+    .logo-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
     header img {
-      width: 120px;
-      height: 120px;
+      width: 240px;
+      height: auto;
+      max-width: 80%;
       filter: drop-shadow(0 0 15px var(--glitch-color1));
       animation: logo-pulse 4s infinite alternate;
+      mix-blend-mode: screen;
     }
     
     @keyframes logo-pulse {
@@ -91,6 +100,18 @@
       50% { text-shadow: 0.025em 0.05em 0 var(--glitch-color2), 0.05em 0 0 var(--glitch-color3); }
       99% { text-shadow: 0.025em 0.05em 0 var(--glitch-color2), 0.05em 0 0 var(--glitch-color3); }
       100% { text-shadow: -0.025em 0 0 var(--glitch-color2), -0.025em -0.025em 0 var(--glitch-color3); }
+    }
+    
+    @media (max-width: 768px) {
+      header img {
+        width: 180px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      header img {
+        width: 150px;
+      }
     }
     
     /* CRT Frame */
@@ -125,9 +146,10 @@
       right: 0;
       bottom: 0;
       pointer-events: none;
-      background: url('https://media.xperia.pt/bitkill/img/crt.png') center/cover repeat;
-      mix-blend-mode: overlay;
-      opacity: 0.3;
+      background: url('/crt-overlay.svg') center/cover no-repeat;
+      mix-blend-mode: screen;
+      opacity: 0.55;
+      z-index: 3;
     }
     
     .crt-scanline {
@@ -223,6 +245,7 @@
     
     .volume-slider {
       -webkit-appearance: none;
+      appearance: none;
       width: 100px;
       height: 5px;
       background: var(--glitch-color1);
@@ -265,4 +288,59 @@
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
+    }
+    
+    /* Glitch Mode Specific Styles */
+    .extreme-glitch .visualizer-frame {
+      transform: translate3d(0, 0, 0) skew(0, 0) !important;
+      scale: 1 !important;
+      height: 250px !important;
+      width: 100% !important;
+    }
+    
+    .extreme-glitch .contact-frame {
+      transform: translate3d(0, 0, 0) skew(0, 0) !important;
+      scale: 1 !important;
+    }
+    
+    /* Ensure Apple Music iframes maintain size in glitch mode */
+    .extreme-glitch .apple-music-frame {
+      transform: translate3d(0, 0, 0) skew(0, 0) !important;
+      scale: 1 !important;
+    }
+    
+    .extreme-glitch .apple-music-frame iframe {
+      width: 100% !important;
+      height: 180px !important;
+      box-shadow: 0 0 15px rgba(170, 170, 170, 0.2) !important;
+    }
+    
+    .extreme-glitch .apple-music-frame.featured iframe {
+      box-shadow: 0 0 20px rgba(170, 170, 170, 0.3) !important;
+    }
+    
+    .extreme-glitch .apple-music-frame:after {
+      border-color: var(--glitch-color1) !important;
+      box-shadow: 0 0 15px var(--glitch-color1) !important;
+    }
+    
+    /* Ensure monochrome colors in glitch mode */
+    .extreme-glitch .form-control {
+      border-color: var(--glitch-color1);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    
+    .extreme-glitch .form-control:focus {
+      border-color: var(--glitch-color2);
+      box-shadow: 0 0 10px rgba(170, 170, 170, 0.3);
+    }
+    
+    .extreme-glitch .alert-success {
+      color: var(--glitch-color1);
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: var(--glitch-color1);
+    }
+    
+    .extreme-glitch .form-btn:after {
+      background: linear-gradient(90deg, var(--glitch-color1), var(--glitch-color2));
     }

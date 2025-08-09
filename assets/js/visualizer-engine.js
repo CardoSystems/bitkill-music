@@ -1,6 +1,11 @@
     // Audio Oscilloscope Visualizer
     document.addEventListener('DOMContentLoaded', function() {
+      console.log("Initializing audio visualizer");
       const canvas = document.getElementById('oscilloscope');
+      if (!canvas) {
+        console.error("Canvas element 'oscilloscope' not found");
+        return;
+      }
       const ctx = canvas.getContext('2d', { willReadFrequently: true });
       
       // Setup canvas size
@@ -21,14 +26,14 @@
           return colorVar;
         }
         
-        // Map CSS variables to their hex values
+        // Map CSS variables to their hex values - updated for monochrome
         const colorMap = {
-          'var(--glitch-color1)': '#0ff', // Cyan
-          'var(--glitch-color2)': '#f0f', // Magenta
-          'var(--glitch-color3)': '#0f0'  // Green
+          'var(--glitch-color1)': '#ffffff', // White
+          'var(--glitch-color2)': '#aaaaaa', // Light gray
+          'var(--glitch-color3)': '#555555'  // Dark gray
         };
         
-        return colorMap[colorVar] || '#0ff'; // Default to cyan if not found
+        return colorMap[colorVar] || '#ffffff'; // Default to white if not found
       }
       
       // Audio context setup
@@ -50,7 +55,11 @@
       
       // Initialize dummy oscillator
       function initDummyVisualizer() {
-        if (audioContext) return;
+        console.log("Initializing dummy visualizer");
+        if (audioContext) {
+          console.log("AudioContext already exists");
+          return;
+        }
         
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
         analyser = audioContext.createAnalyser();
@@ -120,7 +129,7 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         // Draw grid lines
-        ctx.strokeStyle = 'rgba(0, 255, 255, 0.1)'; // Cyan grid lines to match website theme
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; // White grid lines to match monochrome theme
         ctx.lineWidth = 1;
         
         // Horizontal grid lines
@@ -156,8 +165,9 @@
             break;
         }
         
-        // Add CRT phosphor glow effect
-        const glowColor = mouseInside ? `rgba(${Math.sin(time*3)*50+200}, ${Math.cos(time*2)*50+200}, 255, 0.05)` : 'rgba(0, 255, 255, 0.05)';
+        // Add CRT phosphor glow effect - monochrome version
+        const brightness = Math.sin(time*3)*20+230; // Value between 210-250
+        const glowColor = mouseInside ? `rgba(${brightness}, ${brightness}, ${brightness}, 0.05)` : 'rgba(255, 255, 255, 0.05)';
         ctx.fillStyle = glowColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
@@ -170,7 +180,7 @@
       // Draw standard waveform
       function drawWaveform() {
         ctx.lineWidth = 2;
-        ctx.strokeStyle = getCssColor('#0ff'); // Match website cyan color (--glitch-color1)
+        ctx.strokeStyle = getCssColor('#ffffff'); // Match website white color (--glitch-color1)
         ctx.beginPath();
         
         const sliceWidth = canvas.width / dataArray.length;
@@ -198,7 +208,7 @@
         const centerY = canvas.height / 2;
         const radius = Math.min(canvas.width, canvas.height) / 3;
         
-        ctx.strokeStyle = getCssColor('#f0f'); // Pink color (--glitch-color2)
+        ctx.strokeStyle = getCssColor('#aaaaaa'); // Light gray color (--glitch-color2)
         ctx.lineWidth = 2;
         ctx.beginPath();
         
@@ -221,28 +231,34 @@
       
       // Draw bar visualization
       function drawBars() {
-        const barWidth = canvas.width / 64;
+        // Calculate the number of bars to fully cover the canvas width
+        const numBars = Math.min(128, canvas.width / 8); // Ensure we have enough bars (min 8px per bar)
+        const barWidth = Math.max(4, (canvas.width / numBars) - 1); // Min 4px width per bar
+        const barSpacing = 1; // Space between bars
         let x = 0;
         
-        for (let i = 0; i < dataArray.length; i += 32) {
-          const barHeight = (dataArray[i] / 256.0) * canvas.height;
+        // Sample the data array evenly across the available spectrum
+        const step = Math.floor(dataArray.length / numBars);
+        
+        for (let i = 0; i < numBars; i++) {
+          const dataIndex = i * step;
+          const barHeight = (dataArray[dataIndex] / 256.0) * canvas.height;
           
-          // Gradient based on bar height
+          // Gradient based on bar height - monochrome version
           const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
           try {
-            gradient.addColorStop(0, getCssColor('#0f0')); // Green at top (--glitch-color3)
-            gradient.addColorStop(1, getCssColor('#0ff')); // Cyan at bottom (--glitch-color1)
+            gradient.addColorStop(0, getCssColor('#555555')); // Dark gray at top (--glitch-color3)
+            gradient.addColorStop(1, getCssColor('#ffffff')); // White at bottom (--glitch-color1)
           } catch (e) {
             console.log('Gradient error handled:', e.message);
             // Fallback to solid color
-            ctx.fillStyle = '#0ff';
+            ctx.fillStyle = '#ffffff';
           }
           
           ctx.fillStyle = gradient;
           ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
           
-          x += barWidth + 1;
-          if (x > canvas.width) break;
+          x += barWidth + barSpacing;
         }
       }
       
@@ -255,9 +271,9 @@
           const y = (dataArray[i] / 256.0) * canvas.height;
           const size = (dataArray[i] / 256.0) * 10 + 2;
           
-          // Change color based on position
-          const hue = (i / dataArray.length) * 360;
-          ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+          // Change color based on position - monochrome version
+          const brightness = Math.floor((i / dataArray.length) * 100);
+          ctx.fillStyle = `rgb(${brightness+155}, ${brightness+155}, ${brightness+155})`;
           
           ctx.beginPath();
           ctx.arc(x, y, size, 0, Math.PI * 2);
@@ -277,13 +293,19 @@
           const imageData = ctx.getImageData(0, glitchY, glitchWidth, glitchHeight);
           const data = imageData.data;
           
-          // Shift color channels
+          // Apply monochrome glitch effects
           for (let i = 0; i < data.length; i += 4) {
-            if (Math.random() > 0.5) {
-              // Swap R and B channels
-              const temp = data[i];
-              data[i] = data[i + 2];
-              data[i + 2] = temp;
+            if (Math.random() > 0.7) {
+              // For monochrome theme, we don't swap colors (R, G, B should be similar)
+              // Instead, we adjust brightness and contrast
+              const brightness = Math.random() > 0.5 ? 1.5 : 0.5;
+              
+              // Apply brightness modification while maintaining grayscale
+              const avg = Math.floor((data[i] + data[i+1] + data[i+2]) / 3);
+              const newVal = Math.min(255, Math.max(0, Math.floor(avg * brightness)));
+              
+              // Set all RGB channels to the same value for monochrome effect
+              data[i] = data[i+1] = data[i+2] = newVal;
             }
           }
           
@@ -294,13 +316,32 @@
           // If getImageData fails, just draw the glitch line
         }
         
-        // Draw horizontal glitch lines
-        ctx.strokeStyle = `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 0.8)`;
-        ctx.lineWidth = Math.random() * 3 + 1;
-        ctx.beginPath();
-        ctx.moveTo(0, glitchY + Math.random() * glitchHeight);
-        ctx.lineTo(canvas.width, glitchY + Math.random() * glitchHeight);
-        ctx.stroke();
+        // Draw multiple horizontal glitch lines - monochrome version
+        const numGlitchLines = Math.floor(Math.random() * 3) + 1; // 1-3 glitch lines
+        
+        for (let i = 0; i < numGlitchLines; i++) {
+          // Use one of our monochrome colors from the theme
+          const colorChoice = Math.random();
+          let glitchColor;
+          
+          if (colorChoice < 0.6) {
+            // White (60% chance) - bright glitch line
+            glitchColor = 'rgba(255, 255, 255, 0.8)';
+          } else if (colorChoice < 0.9) {
+            // Light gray (30% chance) - medium glitch line
+            glitchColor = 'rgba(170, 170, 170, 0.8)';
+          } else {
+            // Dark gray (10% chance) - subtle glitch line
+            glitchColor = 'rgba(85, 85, 85, 0.8)';
+          }
+          
+          ctx.strokeStyle = glitchColor;
+          ctx.lineWidth = Math.random() * 3 + 1;
+          ctx.beginPath();
+          ctx.moveTo(0, glitchY + Math.random() * glitchHeight);
+          ctx.lineTo(canvas.width, glitchY + Math.random() * glitchHeight);
+          ctx.stroke();
+        }
       }
       
       // Mouse interaction
@@ -348,7 +389,7 @@
       });
       
       // Display initial message
-      ctx.fillStyle = getCssColor('#0ff'); // Cyan color (--glitch-color1)
+      ctx.fillStyle = getCssColor('#ffffff'); // White color (--glitch-color1)
       ctx.font = '16px "Share Tech Mono"';
       ctx.textAlign = 'center';
       ctx.fillText('INITIALIZING NEURAL OSCILLATOR...', canvas.width / 2, canvas.height / 2 - 10);

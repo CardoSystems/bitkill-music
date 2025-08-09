@@ -362,7 +362,8 @@
 
 /* Add some CRT effects */
 .contact-frame .crt-overlay {
-  opacity: 0.2;
+  opacity: 0.4;
+  mix-blend-mode: screen;
 }
 
 .contact-frame .crt-scanline {

@@ -11,6 +11,22 @@
       glare: true,
       "max-glare": 0.5,
     });
+    
+    // Handle responsive tilt - disable on mobile
+    function handleResponsiveTilt() {
+      if (window.innerWidth < 768) {
+        // Disable tilt on mobile for Apple Music frames
+        document.querySelectorAll('.apple-music-frame').forEach(frame => {
+          if (frame.vanillaTilt) {
+            frame.vanillaTilt.destroy();
+          }
+        });
+      }
+    }
+    
+    // Run on load and resize
+    handleResponsiveTilt();
+    window.addEventListener('resize', handleResponsiveTilt);
 
     // Scrolling Text Animation
     const scrollTopText = document.getElementById('scroll-top');
@@ -117,8 +133,9 @@
         const y = dataArray[i] * 2;
         const x = i * barWidth;
         
-        // Create mirror effect
-        ctx.fillStyle = `hsl(${i / bufferLength * 360}, 100%, 50%)`;
+        // Create monochrome effect instead of rainbow
+        const brightness = Math.floor((i / bufferLength) * 100 + 155); // 155-255 range
+        ctx.fillStyle = `rgb(${brightness}, ${brightness}, ${brightness})`;
         
         // Bottom bars
         ctx.fillRect(x, canvas.height - y, barWidth, y);
@@ -128,7 +145,7 @@
         
         // Center line
         if (i % 2 === 0 && dataArray[i] > 50) {
-          ctx.fillStyle = '#fff';
+          ctx.fillStyle = '#fff'; // White for center line
           ctx.fillRect(x, canvas.height / 2 - dataArray[i] / 20, barWidth * 2, dataArray[i] / 10);
         }
       }
@@ -140,7 +157,7 @@
       
       ctx.beginPath();
       ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-      ctx.strokeStyle = '#0ff';
+      ctx.strokeStyle = '#ffffff'; // White instead of cyan
       ctx.stroke();
       
       for (let i = 0; i < bufferLength; i++) {
@@ -163,7 +180,7 @@
       }
       
       ctx.closePath();
-      ctx.strokeStyle = 'rgba(0, 255, 255, 0.5)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)'; // White with transparency instead of cyan
       ctx.stroke();
     }
 
@@ -259,8 +276,8 @@
     });
     
     function startGlitchEffects() {
-      // Create more intense glitch effects
-      document.querySelectorAll('.crt-frame').forEach(frame => {
+      // Create more intense glitch effects, but maintain the monochrome theme
+      document.querySelectorAll('.crt-frame:not(.visualizer-frame)').forEach(frame => {
         gsap.to(frame, {
           skewX: "random(-10, 10)",
           skewY: "random(-5, 5)",
@@ -273,21 +290,23 @@
         });
       });
       
-      // Glitch the logo
+      // Glitch the logo without changing scale
       gsap.to('#logo', {
         x: "random(-10, 10)",
         y: "random(-10, 10)",
-        scale: "random(0.9, 1.1)",
         rotation: "random(-10, 10)",
         duration: 0.2,
         repeat: -1,
         yoyo: true
       });
       
-      // Random color flickers
+      // Use monochrome flickering - only white, light gray, dark gray
+      const monochromePalette = ['#ffffff', '#aaaaaa', '#555555', '#222222'];
       const flickerInterval = setInterval(() => {
-        document.documentElement.style.setProperty('--glitch-color1', `rgb(0, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`);
-      }, 500);
+        // Randomly pick colors from monochrome palette
+        const randomColor = monochromePalette[Math.floor(Math.random() * monochromePalette.length)];
+        document.documentElement.style.setProperty('--glitch-color1', randomColor);
+      }, 300);
       
       window.flickerInterval = flickerInterval;
     }
@@ -300,6 +319,7 @@
           skewY: 0,
           x: 0,
           y: 0,
+          scale: frame.classList.contains('visualizer-frame') ? 0.6 : 1, // Keep scale at 0.6 for visualizer
           duration: 0.5
         });
       });
@@ -314,7 +334,8 @@
       });
       
       clearInterval(window.flickerInterval);
-      document.documentElement.style.setProperty('--glitch-color1', '#0ff');
+      // Reset to monochrome white for --glitch-color1
+      document.documentElement.style.setProperty('--glitch-color1', '#ffffff');
     }
 
     // Add interactive cursor trail
@@ -326,7 +347,9 @@
         trail.style.width = '5px';
         trail.style.height = '5px';
         trail.style.borderRadius = '50%';
-        trail.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        // Use monochrome colors
+        const brightness = Math.floor(Math.random() * 200) + 55; // Value between 55-255
+        trail.style.backgroundColor = `rgb(${brightness}, ${brightness}, ${brightness})`;
         trail.style.boxShadow = '0 0 10px currentColor';
         trail.style.left = `${e.clientX}px`;
         trail.style.top = `${e.clientY}px`;
@@ -345,7 +368,7 @@
       }
     });
 
-    // Random glitch elements
+    // Random glitch elements - monochrome only
     setInterval(() => {
       if (Math.random() > 0.9) {
         const glitchOverlay = document.createElement('div');
@@ -354,7 +377,9 @@
         glitchOverlay.style.left = '0';
         glitchOverlay.style.width = '100%';
         glitchOverlay.style.height = '100%';
-        glitchOverlay.style.backgroundColor = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.1)`;
+        // Use monochrome colors
+        const brightness = Math.floor(Math.random() * 255);
+        glitchOverlay.style.backgroundColor = `rgba(${brightness}, ${brightness}, ${brightness}, 0.1)`;
         glitchOverlay.style.mixBlendMode = 'overlay';
         glitchOverlay.style.zIndex = '1000';
         glitchOverlay.style.pointerEvents = 'none';

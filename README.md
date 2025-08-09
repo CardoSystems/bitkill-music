@@ -1,12 +1,12 @@
 # BitKill Music Website - Technical Documentation
 
-A cyberpunk-themed progressive web application for electronic music producer BitKill, featuring interactive audio visualization, real-time glitch effects, and offline capabilities.
+A monochrome-themed progressive web application for electronic music producer BitKill, featuring interactive audio visualization, real-time glitch effects, and offline capabilities.
 
 ![BitKill Music](favicon.png)
 
 ## Technical Architecture Overview
 
-This application implements a modern frontend architecture with a focus on immersive audio-visual experiences, cyberpunk aesthetics, and progressive web app functionality. It employs a modular component-based structure with clear separation of concerns across visualization engines, audio processing, UI effects, and service worker integration.
+This application implements a modern frontend architecture with a focus on immersive audio-visual experiences, monochrome aesthetics, and progressive web app functionality. It employs a modular component-based structure with clear separation of concerns across visualization engines, audio processing, UI effects, and service worker integration.
 
 ### Tech Stack
 
@@ -24,7 +24,7 @@ This application implements a modern frontend architecture with a focus on immer
   - Vanilla Tilt for 3D tilt effects on CRT frames
   - Three.js with EffectComposer for advanced visual effects
 
-## Core Components and Implementation
+### Core Components and Implementation
 
 ### 1. Audio Visualization System
 
@@ -85,7 +85,45 @@ function addGlitchEffect() {
 }
 ```
 
-### 3. Progressive Web App Implementation
+### 3. Monochrome Background System
+
+The website now uses a dedicated monochrome background animation system:
+
+- **Particle System**: Creates a 3D space with floating particles in monochrome colors
+- **Glitch Effects**: Occasional glitch effects synchronized with audio playback
+- **Audio Reactivity**: Subtle particle movement and color changes based on audio input
+
+```javascript
+// Example from mono-engine.js
+const particleGeometry = new THREE.BufferGeometry();
+const particleCount = 2000;
+
+const positions = new Float32Array(particleCount * 3);
+const colors = new Float32Array(particleCount * 3);
+const velocities = []; // Array to store particle velocities for floating effect
+
+for (let i = 0; i < particleCount * 3; i += 3) {
+  // Position particles in a wider space
+  positions[i] = (Math.random() - 0.5) * 15;
+  positions[i + 1] = (Math.random() - 0.5) * 15;
+  positions[i + 2] = (Math.random() - 0.5) * 15;
+  
+  // Store random velocities for each particle
+  velocities.push({
+    x: (Math.random() - 0.5) * 0.01,
+    y: (Math.random() - 0.5) * 0.01,
+    z: (Math.random() - 0.5) * 0.01
+  });
+  
+  // Monochrome color palette with slight variations for glitch effect
+  const brightness = Math.random() * 0.5 + 0.5; // Value between 0.5 and 1.0
+  colors[i] = brightness; // R
+  colors[i + 1] = brightness; // G
+  colors[i + 2] = brightness; // B
+}
+```
+
+### 4. Progressive Web App Implementation
 
 The service worker implements a sophisticated caching strategy with three distinct cache stores:
 
@@ -106,7 +144,7 @@ The service worker also implements:
 - Custom offline fallback page with minimal styling
 - Cache cleanup on service worker activation
 
-### 4. Security Implementation
+### 5. Security Implementation
 
 The application implements several security best practices:
 
@@ -119,7 +157,7 @@ The application implements several security best practices:
 - **Form Security**: Honeypot fields to prevent spam submissions
 - **External Resource Integrity**: Limited script sources with specific domains
 
-### 5. User Interface Components
+### 6. User Interface Components
 
 The UI implements several advanced techniques:
 
@@ -171,7 +209,6 @@ function typeTerminal() {
 ├── robots.txt              # Robots crawl instructions
 ├── assets/
 │   ├── css/
-│   │   ├── animation-switcher.css   # Theme switching functionality
 │   │   ├── audio-visualizer.css     # Audio visualization component styles
 │   │   ├── contact-form.css         # Form styling and animations
 │   │   ├── cyber-footer.css         # Footer component with glitch effects
@@ -179,19 +216,18 @@ function typeTerminal() {
 │   │   ├── music-demos.css          # Music showcase components
 │   │   └── sound-buttons.css        # Audio control interface
 │   └── js/
-│       ├── animation-switcher.js    # Theme switching engine
 │       ├── contact-form.js          # Form validation and submission
 │       ├── first-input.js           # Input handling and initialization
 │       ├── footer-glitch.js         # Footer-specific effects
 │       ├── formoid.min.js           # Form utility library
 │       ├── glitch-engine.js         # Core visual glitch system
 │       ├── meta-data.js             # Dynamic metadata management
-│       ├── mono-engine.js           # Monospace text effect system
+│       ├── mono-engine.js           # Monochrome background animation system
 │       ├── service-worker-registration.js  # PWA registration
 │       ├── sound-input.js           # Audio input and processing
 │       ├── structured-data.js       # JSON-LD schema implementation
 │       ├── visualizer-engine.js     # Audio visualization rendering
-│       └── wallpaper-engine.js      # Background effects
+│       └── wallpaper-engine.js      # Legacy cyberpunk background animation (not in use)
 ```
 
 ## Implementation Details
