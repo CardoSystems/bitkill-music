@@ -1,37 +1,31 @@
 /**
- * @author alteredq / http://alteredqualia.com/
- *
  * Full-screen textured quad shader
+ * Compatible with Three.js EffectComposer
  */
 
-// Replace module.exports with direct assignment to THREE.CopyShader
+// Direct assignment to THREE.CopyShader for browser script inclusion
 THREE.CopyShader = {
   uniforms: {
-    "tDiffuse": { type: "t", value: null },
-    "opacity":  { type: "f", value: 1.0 }
+    "tDiffuse": { value: null },
+    "opacity": { value: 1.0 }
   },
-  vertexShader: [
-    "varying vec2 vUv;",
+  vertexShader: /* glsl */`
+varying vec2 vUv;
 
-    "void main() {",
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+`,
+  fragmentShader: /* glsl */`
+uniform float opacity;
+uniform sampler2D tDiffuse;
 
-      "vUv = uv;",
-      "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+varying vec2 vUv;
 
-    "}"
-  ].join("\n"),
-  fragmentShader: [
-    "uniform float opacity;",
-
-    "uniform sampler2D tDiffuse;",
-
-    "varying vec2 vUv;",
-
-    "void main() {",
-
-      "vec4 texel = texture2D( tDiffuse, vUv );",
-      "gl_FragColor = opacity * texel;",
-
-    "}"
-  ].join("\n")
+void main() {
+  vec4 texel = texture2D(tDiffuse, vUv);
+  gl_FragColor = opacity * texel;
+}
+`
 };
