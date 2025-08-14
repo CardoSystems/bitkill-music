@@ -4,7 +4,8 @@
  * Full-screen textured quad shader
  */
 
-module.exports = {
+// Replace module.exports with direct assignment to THREE.CopyShader
+THREE.CopyShader = {
   uniforms: {
     "tDiffuse": { type: "t", value: null },
     "opacity":  { type: "f", value: 1.0 }
