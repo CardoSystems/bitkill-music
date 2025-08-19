@@ -1,4 +1,4 @@
-// Cloudflare Turnstile robust client-side validation for Web3Forms
+// Cloudflare Turnstile bulletproof client-side validation for Web3Forms
 window.addEventListener('DOMContentLoaded', function() {
   var form = document.getElementById('contact-form');
   var turnstileError = document.getElementById('turnstile-error');
@@ -6,16 +6,20 @@ window.addEventListener('DOMContentLoaded', function() {
   var turnstileWidget = document.querySelector('.cf-turnstile');
   var submitBtn = form.querySelector('button[type="submit"]');
 
-  // Helper to check if token is present
   function isTurnstileValid() {
     return turnstileInput && turnstileInput.value && turnstileInput.value.length > 0;
   }
-
-  // Disable submit button until Turnstile is solved
   function setSubmitEnabled(enabled) {
     if (submitBtn) submitBtn.disabled = !enabled;
   }
   setSubmitEnabled(false);
+
+  // Show error if widget fails to render
+  function showWidgetError() {
+    turnstileError.style.display = 'block';
+    turnstileError.textContent = 'CAPTCHA failed to load. Please disable adblockers or try again.';
+    setSubmitEnabled(false);
+  }
 
   // Listen for Turnstile callback to set the hidden input
   window.turnstileCallback = function(token) {
@@ -23,7 +27,6 @@ window.addEventListener('DOMContentLoaded', function() {
     turnstileError.style.display = 'none';
     setSubmitEnabled(true);
   };
-  // Listen for Turnstile expiration to disable submit again
   window.turnstileExpired = function() {
     turnstileInput.value = '';
     setSubmitEnabled(false);
@@ -43,15 +46,24 @@ window.addEventListener('DOMContentLoaded', function() {
   });
 
   // Wait for Turnstile API to load, then render widget
-  function renderTurnstileWhenReady() {
+  var widgetRendered = false;
+  function renderTurnstileWhenReady(attempts) {
+    attempts = attempts || 0;
     if (typeof turnstile !== 'undefined' && turnstileWidget) {
-      turnstile.render(turnstileWidget, {
-        sitekey: turnstileWidget.getAttribute('data-sitekey'),
-        callback: window.turnstileCallback,
-        'expired-callback': window.turnstileExpired
-      });
+      try {
+        turnstile.render(turnstileWidget, {
+          sitekey: turnstileWidget.getAttribute('data-sitekey'),
+          callback: window.turnstileCallback,
+          'expired-callback': window.turnstileExpired
+        });
+        widgetRendered = true;
+      } catch (err) {
+        showWidgetError();
+      }
+    } else if (attempts < 50) {
+      setTimeout(function() { renderTurnstileWhenReady(attempts + 1); }, 100);
     } else {
-      setTimeout(renderTurnstileWhenReady, 100);
+      showWidgetError();
     }
   }
   renderTurnstileWhenReady();
