@@ -16,6 +16,7 @@ const CORE_ASSETS = [
   '/assets/js/footer-glitch.js',
   '/assets/js/glitch-engine.js',
   '/assets/js/visualizer-engine.js',
+  '/assets/js/crt-engine.js',
   '/assets/three.js/mono-engine.js',
   '/assets/js/sound-input.js',
   '/assets/js/service-worker-registration.js',

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.xperia.pt https://media.xperia.pt https://embed.music.apple.com https://api.web3forms.com https://static.cloudflareinsights.com https://app.rybbit.io https://www.google.com https://stats.g.doubleclick.net; style-src 'self' 'unsafe-inline' https://api.fonts.coollabs.io https://cdn.fonts.coollabs.io https://assets.xperia.pt; img-src 'self' https://media.xperia.pt data:; font-src 'self' https://api.fonts.coollabs.io https://cdn.fonts.coollabs.io; frame-src https://embed.music.apple.com https://app.rybbit.io; connect-src 'self' https://api.web3forms.com https://cloudflareinsights.com https://app.rybbit.io https://www.google.com https://stats.g.doubleclick.net https://www.google-analytics.com; media-src 'self' https://media.xperia.pt;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.xperia.pt https://media.xperia.pt https://embed.music.apple.com https://api.web3forms.com https://static.cloudflareinsights.com https://app.rybbit.io https://www.google.com https://stats.g.doubleclick.net https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://api.fonts.coollabs.io https://cdn.fonts.coollabs.io https://assets.xperia.pt; img-src 'self' https://media.xperia.pt data:; font-src 'self' https://api.fonts.coollabs.io https://cdn.fonts.coollabs.io; frame-src https://embed.music.apple.com https://app.rybbit.io https://challenges.cloudflare.com; connect-src 'self' https://api.web3forms.com https://cloudflareinsights.com https://app.rybbit.io https://www.google.com https://stats.g.doubleclick.net https://www.google-analytics.com https://challenges.cloudflare.com; media-src 'self' https://media.xperia.pt;">
 <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
 
 	<!-- Open Graph / Facebook / Messenger -->
@@ -235,7 +235,8 @@
         data-web-vitals="true"
         defer
     ></script>
-
+        <!-- loudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- Audio Oscillator Visualizer -->
   <div class="visualizer-container">
