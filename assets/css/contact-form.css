@@ -416,3 +416,9 @@
     padding: 15px 10px;
   }
 }
+#contact-form .form-btn {
+  display: none;
+}
+#contact-form.turnstile-valid .form-btn {
+  display: inline-block;
+}

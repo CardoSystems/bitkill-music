@@ -11,6 +11,11 @@ window.addEventListener('DOMContentLoaded', function() {
   }
   function setSubmitEnabled(enabled) {
     if (submitBtn) submitBtn.disabled = !enabled;
+    if (enabled) {
+      form.classList.add('turnstile-valid');
+    } else {
+      form.classList.remove('turnstile-valid');
+    }
   }
   setSubmitEnabled(false);
 
