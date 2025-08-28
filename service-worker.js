@@ -39,6 +39,7 @@ const CORE_ASSETS = [
 const MEDIA_ASSETS = [
   '/favicon.ico',
   '/logo.png',
+  'https://cdn.xperia.pt/bitkillmusic.com/demo2.m4a',
   'https://cdn.xperia.pt/bitkillmusic.com/vod1.mp4',
   'https://cdn.xperia.pt/bitkillmusic.com/vod2.mp4',
   'https://cdn.xperia.pt/bitkillmusic.com/vod3.mp4',
