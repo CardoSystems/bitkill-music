@@ -32,17 +32,18 @@ const CORE_ASSETS = [
   'assets/three.js/ShaderPass.min.js',
   'assets/three.js/DigitalGlitch.js',
   'assets/three.js/GlitchPass.min.js',
-  'https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap'
+  'https://api.fonts.coollabs.io/css2?family=Share+Tech+Mono&display=swap'
 ];
 
 // Media files to cache for offline viewing
 const MEDIA_ASSETS = [
-  '/favicon.jpg',
-  'https://media.xperia.pt/bitkill/vod/vod1.mp4',
-  'https://media.xperia.pt/bitkill/vod/vod2.mp4',
-  'https://media.xperia.pt/bitkill/vod/vod3.mp4',
-  'https://media.xperia.pt/bitkill/vod/vod4.mp4',
-  'https://media.xperia.pt/bitkill/vod/vod5.mp4'
+  '/favicon.ico',
+  '/logo.png',
+  'https://cdn.xperia.pt/bitkillmusic.com/vod1.mp4',
+  'https://cdn.xperia.pt/bitkillmusic.com/vod2.mp4',
+  'https://cdn.xperia.pt/bitkillmusic.com/vod3.mp4',
+  'https://cdn.xperia.pt/bitkillmusic.com/vod4.mp4',
+  'https://cdn.xperia.pt/bitkillmusic.com/vod5.mp4'
 ];
 
 // Install event - cache core assets

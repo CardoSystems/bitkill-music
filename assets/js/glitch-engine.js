@@ -95,7 +95,7 @@
       audioCtx.resume().then(() => {
         source = audioCtx.createBufferSource();
         
-        fetch('https://media.xperia.pt/bitkill/mp3/demo1.mp3')
+        fetch('https://cdn.xperia.pt/bitkillmusic.com/demo1.mp3')
           .then(res => res.arrayBuffer())
           .then(buffer => audioCtx.decodeAudioData(buffer))
           .then(decoded => {
