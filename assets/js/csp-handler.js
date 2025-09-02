@@ -102,6 +102,15 @@
    * @param {string} cspString - The complete CSP string
    */
   function applyCSP(cspString) {
+    // Check if a CSP meta tag already exists
+    const existingCSP = document.querySelector('meta[http-equiv="Content-Security-Policy"]');
+    
+    if (existingCSP) {
+      // Log that we're keeping the existing CSP
+      console.log('[CSP Handler] Content Security Policy already exists in HTML, not overriding');
+      return;
+    }
+    
     // For older browsers that support http-equiv
     const metaTag = document.createElement('meta');
     metaTag.httpEquiv = 'Content-Security-Policy';
