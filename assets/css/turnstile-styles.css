@@ -92,11 +92,12 @@
 
 .form-btn .sound-wave {
   position: absolute;
-  background: var(--glitch-color1);
+  background: #ffffff; /* Pure white for sound waves */
   width: 3px;
   height: 100%;
   left: 0;
   animation: sound-wave 1.5s infinite;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* Add glow to sound waves */
 }
 
 .form-btn .sound-wave:nth-child(2) {
@@ -110,20 +111,22 @@
 }
 
 .form-btn.ready .sound-wave {
-  background: var(--glitch-color3);
+  background: #ffffff; /* Keep white in ready state */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 1); /* Stronger glow in ready state */
 }
 
 .form-btn .sound-label {
   font-family: 'Share Tech Mono', monospace;
-  color: var(--glitch-color1);
+  color: #ffffff; /* Pure white text */
   font-size: 0.9rem;
-  text-shadow: 0 0 5px var(--glitch-color1);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.9); /* Stronger white glow */
   letter-spacing: 1px;
 }
 
 .form-btn.ready .sound-label {
-  color: var(--glitch-color3);
-  text-shadow: 0 0 5px var(--glitch-color3);
+  color: #ffffff; /* Keep white in ready state */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1); /* Even stronger glow when ready */
+  font-weight: bold; /* Make text bolder when ready */
 }
 
 /* Disabled state for sound waves */
@@ -192,21 +195,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.6);
-  border: 2px solid var(--glitch-color1);
+  background: rgba(0, 0, 0, 0.7);
+  border: 3px solid #ffffff; /* Brighter white border */
   padding: 10px 20px;
   border-radius: 2px;
   cursor: pointer;
-  box-shadow: 0 0 15px var(--glitch-color1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Stronger white glow */
   transition: all 0.3s;
-  animation: pulse 2s infinite alternate;
+  animation: pulse-bright 2s infinite alternate;
   min-width: 220px;
   text-align: center;
   margin: 0 auto;
   font-family: 'Share Tech Mono', monospace;
-  color: var(--glitch-color1);
+  color: #ffffff; /* Pure white text */
   font-size: 1.1rem;
-  text-shadow: 0 0 5px var(--glitch-color1);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.9); /* Stronger white text glow */
   letter-spacing: 1px;
   text-transform: uppercase;
   position: relative;
@@ -225,17 +228,19 @@
 /* Hover effect */
 .form-btn:hover:not(:disabled) {
   transform: scale(1.05);
-  box-shadow: 0 0 25px var(--glitch-color2);
-  border-color: var(--glitch-color2);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 1); /* Intense white glow on hover */
+  border-color: #ffffff;
+  background: rgba(30, 30, 30, 0.8); /* Slightly lighter background on hover */
 }
 
 /* Active state (ready) */
 .form-btn.ready {
-  border-color: var(--glitch-color3);
-  box-shadow: 0 0 15px var(--glitch-color3);
-  color: var(--glitch-color3);
-  text-shadow: 0 0 5px var(--glitch-color3);
-  background: rgba(0, 0, 0, 0.6);
+  border-color: #ffffff;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 1);
+  background: rgba(20, 20, 20, 0.9); /* Darker background to make white text pop */
+  animation: pulse-bright 1.5s infinite alternate;
 }
 
 @keyframes text-flicker {
@@ -251,6 +256,22 @@
   0% { opacity: 1; }
   50% { opacity: 0.7; }
   100% { opacity: 1; }
+}
+
+/* Brighter pulsing animation for the submit button */
+@keyframes pulse-bright {
+  0% { 
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+  }
+  50% { 
+    opacity: 0.95;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+  }
+  100% { 
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+  }
 }
 
 /* Media query adjustments */
