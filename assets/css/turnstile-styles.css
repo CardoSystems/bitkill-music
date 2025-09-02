@@ -1,0 +1,78 @@
+/**
+ * Styles for Cloudflare Turnstile integration
+ * Added to existing contact-form.css
+ */
+
+/* Turnstile error message styling */
+#turnstile-error {
+  color: #ff4444;
+  font-family: 'Share Tech Mono', monospace;
+  text-align: center;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ff4444;
+  background-color: rgba(255, 68, 68, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+#turnstile-error.glitch-text {
+  animation: errorGlitch 0.5s infinite;
+}
+
+/* Button states */
+.form-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.form-btn:disabled::after {
+  content: "CAPTCHA REQUIRED";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7em;
+  color: #ff4444;
+  animation: blink 1s infinite;
+}
+
+.form-btn.ready {
+  animation: readyPulse 2s infinite;
+}
+
+/* Custom styles for Turnstile widget */
+.cf-turnstile {
+  margin: 15px auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Animations */
+@keyframes errorGlitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes readyPulse {
+  0%, 100% { box-shadow: 0 0 5px #0cff8a; }
+  50% { box-shadow: 0 0 15px #0cff8a; }
+}
+
+/* Media query adjustments */
+@media (max-width: 768px) {
+  .cf-turnstile {
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+}

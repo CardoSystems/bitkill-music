@@ -83,6 +83,7 @@
   <link href="assets/css/music-demos.css" rel="stylesheet" />
   <link href="assets/css/sound-buttons.css" rel="stylesheet" />
   <link href="assets/css/contact-form.css" rel="stylesheet" />
+  <link href="assets/css/turnstile-styles.css" rel="stylesheet" />
 
     <!-- Rybbit Analytics -->
     <script
@@ -248,7 +249,7 @@
   
 
         <!-- loudflare Turnstile -->
-  <script src="assets/js/turnstile-clientside.js"></script>
+  <script src="assets/js/turnstile-handler.js"></script>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- Audio Oscillator Visualizer -->
@@ -316,7 +317,7 @@
                   <textarea name="message" placeholder="ENTER TRANSMISSION DATA" data-form-field="textarea" class="form-control" rows="4" required></textarea>
                   <div class="textarea-glitch-effect"></div>
                 </div>
-                  <div class="cf-turnstile" data-sitekey="0x4AAAAAABoZlpXdAQbvzlo-"data-theme="dark"></div>
+                  <div class="cf-turnstile" data-sitekey="0x4AAAAAABoZlpXdAQbvzlo-" data-theme="dark" data-callback="turnstileCallback" data-expired-callback="turnstileExpired"></div>
                   <div id="turnstile-error" style="color:#ff4444;display:none;margin:10px 0;">Please complete the CAPTCHA.</div>
                 <div class="form-group text-center">
                   <button type="submit" class="interactive-btn form-btn">TRANSMIT DATA</button>
