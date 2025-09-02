@@ -1,3 +1,8 @@
+/**
+ * BITKILL Music - Contact Form Handler
+ * Cyberpunk-themed form with glitch effects
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
   // Get the form element
   const form = document.querySelector('.glitch-form');
@@ -34,6 +39,13 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
       // Always prevent default to handle submission with AJAX
       e.preventDefault();
+      
+      // Check if Turnstile token exists
+      const turnstileResponse = document.getElementById('cf-turnstile-response');
+      if (turnstileResponse && (!turnstileResponse.value || turnstileResponse.value.trim() === '')) {
+        playGlitchSound('error');
+        return false; // Let turnstile-handler.js handle this error
+      }
       
       // Validate form fields before submission
       const name = form.querySelector('input[name="name"]').value.trim();
@@ -115,14 +127,22 @@ document.addEventListener('DOMContentLoaded', function() {
           showFormMessage('TRANSMISSION COMPLETE', 'success');
         }
         
-        // Reset the form
+        // Reset the form and Turnstile
         form.reset();
+        form.classList.remove('turnstile-valid'); // Remove the class to hide submit button
+        
+        // Reload Turnstile widget if possible
+        if (typeof turnstile !== 'undefined') {
+          turnstile.reset();
+        }
         
         // Remove overlay and reset button
         setTimeout(() => {
           removeGlitchOverlay();
           submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
+          submitBtn.disabled = true; // Disable again until new Turnstile verification
+          submitBtn.classList.remove('ready');
+          submitBtn.classList.add('waiting-verification');
           form.classList.remove('submitting');
         }, 2000);
       })
@@ -145,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
           removeGlitchOverlay();
           submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
+          submitBtn.disabled = false; // Re-enable for retry
           form.classList.remove('submitting');
         }, 2000);
       });
@@ -169,17 +189,24 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Function to play glitch sounds
-  function playGlitchSound(type) {
-    // Create a simple oscillator for sound effects
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  window.playGlitchSound = function(type) {
+    // Check if audio context is already defined
+    if (!window.audioContext) {
+      try {
+        window.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      } catch (e) {
+        console.error('Web Audio API not supported:', e);
+        return; // Exit if audio API not supported
+      }
+    }
     
     // Create oscillator
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
+    const oscillator = window.audioContext.createOscillator();
+    const gainNode = window.audioContext.createGain();
     
     // Connect nodes
     oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
+    gainNode.connect(window.audioContext.destination);
     
     // Set type and frequency based on sound type
     if (type === 'key') {
@@ -197,8 +224,8 @@ document.addEventListener('DOMContentLoaded', function() {
       gainNode.gain.value = 0.1;
       
       // Frequency sweep
-      oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(110, audioContext.currentTime + 0.5);
+      oscillator.frequency.setValueAtTime(880, window.audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(110, window.audioContext.currentTime + 0.5);
       
       // Start and stop
       oscillator.start();
@@ -210,9 +237,9 @@ document.addEventListener('DOMContentLoaded', function() {
       gainNode.gain.value = 0.1;
       
       // Error sound (alternating frequencies)
-      oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
-      oscillator.frequency.setValueAtTime(110, audioContext.currentTime + 0.2);
-      oscillator.frequency.setValueAtTime(220, audioContext.currentTime + 0.4);
+      oscillator.frequency.setValueAtTime(220, window.audioContext.currentTime);
+      oscillator.frequency.setValueAtTime(110, window.audioContext.currentTime + 0.2);
+      oscillator.frequency.setValueAtTime(220, window.audioContext.currentTime + 0.4);
       
       // Start and stop
       oscillator.start();
@@ -220,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
         oscillator.stop();
       }, 600);
     }
-  }
+  };
   
   // Function to show form message
   function showFormMessage(message, type) {

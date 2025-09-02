@@ -65,13 +65,16 @@
       align-items: center;
     }
     
-    header img {
+    header img.logo {
+      display: block;
       width: 240px;
       height: auto;
       max-width: 80%;
       filter: drop-shadow(0 0 15px var(--glitch-color1));
       animation: logo-pulse 4s infinite alternate;
       mix-blend-mode: screen;
+      opacity: 1;
+      visibility: visible;
     }
     
     @keyframes logo-pulse {
@@ -139,6 +142,7 @@
       object-fit: cover;
     }
     
+    /* General CRT overlay base class */
     .crt-overlay {
       position: absolute;
       top: 0;
@@ -146,10 +150,17 @@
       right: 0;
       bottom: 0;
       pointer-events: none;
-      background: url('https://cdn.xperia.pt/bitkillmusic.com//crt.png') center/cover no-repeat;
       mix-blend-mode: screen;
-      opacity: 0.55;
       z-index: 3;
+      /* By default, no background image */
+      background: none;
+      opacity: 0;
+    }
+    
+    /* Video-specific CRT overlay - only applied to video containers */
+    .crt-video-overlay {
+      background: url('https://cdn.xperia.pt/bitkillmusic.com/crt.png') center/cover no-repeat;
+      opacity: 0.55;
     }
     
     .crt-scanline {
@@ -159,9 +170,25 @@
       right: 0;
       bottom: 0;
       pointer-events: none;
+      /* By default, no background effect */
+      background: none;
+      opacity: 0;
+    }
+    
+    /* Video-specific scanline effect - only applied to video containers */
+    .crt-video-scanline {
       background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
       background-size: 100% 4px;
       animation: scanline 10s linear infinite;
+      opacity: 1;
+    }
+    
+    /* Visualizer-specific scanline effect */
+    .visualizer-frame .crt-scanline {
+      background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
+      background-size: 100% 4px;
+      animation: scanline 10s linear infinite;
+      opacity: 1;
     }
     
     @keyframes scanline {

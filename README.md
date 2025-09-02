@@ -223,7 +223,7 @@ function typeTerminal() {
 │       ├── glitch-engine.js         # Core visual glitch system
 │       ├── meta-data.js             # Dynamic metadata management
 │       ├── mono-engine.js           # Monochrome background animation system
-│       ├── service-worker-registration.js  # PWA registration
+│       ├── sw-init.js               # PWA and Service Worker initialization
 │       ├── sound-input.js           # Audio input and processing
 │       ├── structured-data.js       # JSON-LD schema implementation
 │       ├── visualizer-engine.js     # Audio visualization rendering

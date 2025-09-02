@@ -4,7 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="theme-color" content="#555555">
-<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.xperia.pt https://embed.music.apple.com https://api.web3forms.com https://static.cloudflareinsights.com https://app.rybbit.io https://www.google.com https://stats.g.doubleclick.net https://challenges.cloudflare.com https://*.cloudflarechallenge.com https://cdn-cgi.challenge-platform.cloudflare.com https://bitkillmusic.com/cdn-cgi/challenge-platform/; style-src 'self' 'unsafe-inline' https://api.fonts.coollabs.io https://cdn.fonts.coollabs.io https://cdn.xperia.pt; img-src 'self' https://media.xperia.pt data:; font-src 'self' https://api.fonts.coollabs.io https://cdn.fonts.coollabs.io; frame-src https://embed.music.apple.com https://app.rybbit.io https://challenges.cloudflare.com; connect-src 'self' https://api.web3forms.com https://cloudflareinsights.com https://app.rybbit.io https://www.google.com https://stats.g.doubleclick.net https://www.google-analytics.com https://challenges.cloudflare.com; media-src 'self' https://cdn.xperia.pt;"> -->
+<!-- CSP will be applied dynamically by csp-handler.js -->
+<script src="assets/js/csp-handler.js"></script>
 <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
 
 	<!-- Open Graph / Facebook / Messenger -->
@@ -20,7 +21,7 @@
 <meta property="og:site_name" content="BITKILL Official Website">
 <meta property="og:title" content="BITKILL - Cyberpunk Electronic Music">
 <meta property="og:description" content="Experience BITKILL's unique blend of cybercore and glitchcore electronic music. NEXUS OUT NOW!">
-<meta property="og:image" content="/logo.png">
+<meta property="og:image" content="icons/logo.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -31,28 +32,21 @@
 <meta name="twitter:url" content="https://bitkillmusic.com/">
 <meta name="twitter:title" content="BITKILL - Cyberpunk Electronic Music">
 <meta name="twitter:description" content="Experience BITKILL's unique blend of cybercore and glitchcore electronic music. NEXUS OUT NOW!">
-<meta name="twitter:image" content="/logo.png">
+<meta name="twitter:image" content="icons/logo.png">
 <meta name="twitter:image:alt" content="BITKILL Official Artwork">
 
-<!-- https://www.favicon-generator.org/ -->
- <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="/icons/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
-<link rel="icon" type="image/png" href="favicon.ico">
-<link rel="manifest" href="/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="icons//ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+<!-- Icons -->
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/android-chrome-512x512.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="site.webmanifest">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="theme-color" content="#000000">
 
 <!-- Canonical URL -->
 <link rel="canonical" href="https://bitkillmusic.com/">
@@ -72,7 +66,7 @@
 <link rel="preconnect" href="js-cdn.music.apple.com"crossorigin>
 
   <title>BitKill // music</title>
-  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="icon" type="image/png" href="favicon.ico" />
   <link href="assets/npm/aos.css" rel="stylesheet" />
   <link href="https://api.fonts.coollabs.io/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   
@@ -108,7 +102,7 @@
 
   <header>
     <div class="logo-container" data-aos="fade-down">
-      <img src="logo.png" alt="BitKill Logo" class="logo">
+      <img src="icons/logo.png" alt="BitKill Logo" class="logo">
     </div>
   </header>
 
@@ -135,36 +129,36 @@
       <video class="crt-video" autoplay muted loop>
         <source src="https://cdn.xperia.pt/bitkillmusic.com/vod1.mp4" type="video/mp4" />
       </video>
-      <div class="crt-overlay"></div>
-      <div class="crt-scanline"></div>
+      <div class="crt-overlay crt-video-overlay"></div>
+      <div class="crt-scanline crt-video-scanline"></div>
     </div>
     <div class="crt-frame" data-aos="zoom-in" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.8">
       <video class="crt-video" autoplay muted loop>
         <source src="https://cdn.xperia.pt/bitkillmusic.com/vod2.mp4" type="video/mp4" />
       </video>
-      <div class="crt-overlay"></div>
-      <div class="crt-scanline"></div>
+      <div class="crt-overlay crt-video-overlay"></div>
+      <div class="crt-scanline crt-video-scanline"></div>
     </div>
     <div class="crt-frame" data-aos="zoom-in" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.8">
       <video class="crt-video" autoplay muted loop>
         <source src="https://cdn.xperia.pt/bitkillmusic.com/vod3.mp4" type="video/mp4" />
       </video>
-      <div class="crt-overlay"></div>
-      <div class="crt-scanline"></div>
+      <div class="crt-overlay crt-video-overlay"></div>
+      <div class="crt-scanline crt-video-scanline"></div>
     </div>
     <div class="crt-frame" data-aos="zoom-in" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.8">
       <video class="crt-video" autoplay muted loop>
         <source src="https://cdn.xperia.pt/bitkillmusic.com/vod4.mp4" type="video/mp4" />
       </video>
-      <div class="crt-overlay"></div>
-      <div class="crt-scanline"></div>
+      <div class="crt-overlay crt-video-overlay"></div>
+      <div class="crt-scanline crt-video-scanline"></div>
     </div>
     <div class="crt-frame" data-aos="zoom-in" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.8">
       <video class="crt-video" autoplay muted loop>
         <source src="https://cdn.xperia.pt/bitkillmusic.com/vod5.mp4" type="video/mp4" />
       </video>
-      <div class="crt-overlay"></div>
-      <div class="crt-scanline"></div>
+      <div class="crt-overlay crt-video-overlay"></div>
+      <div class="crt-scanline crt-video-scanline"></div>
     </div>
   </section>
 
@@ -178,7 +172,7 @@
     <div class="sound-label">ACTIVATE SOUND</div>
   </div>
 
-  <section class="music-demos" data-aos="fade-up">
+  <section class="music-demos" id="music-demos" data-aos="fade-up">
     <h3>MUSIC DEMOS</h3>
 
       <div class="crt-frame apple-music-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
@@ -241,7 +235,7 @@
   <script src="assets/js/crt-engine.js"></script>
 
   <!-- Service Worker Registration -->
-  <script src="assets/js/service-worker-registration.js"></script>
+  <script src="assets/js/sw-init.js"></script>
   
   <!-- SEO Enhancements -->
   <script src="assets/js/structured-data.js"></script>
@@ -257,7 +251,6 @@
     <h2 class="glitch-title" style="font-size: 2rem; margin: 2rem 0;">AUDIO VISUALIZER</h2>
     <div class="crt-frame visualizer-frame" data-aos="zoom-in" data-tilt data-tilt-max="5">
       <canvas id="oscilloscope"></canvas>
-      <div class="crt-overlay"></div>
       <div class="crt-scanline"></div>
       <div class="visualizer-controls"></div>
         <span>INTERACT: <span class="control-highlight">HOVER/CLICK</span></span>
@@ -320,15 +313,21 @@
                   <div class="cf-turnstile" data-sitekey="0x4AAAAAABoZlpXdAQbvzlo-" data-theme="dark" data-callback="turnstileCallback" data-expired-callback="turnstileExpired"></div>
                   <div id="turnstile-error" style="color:#ff4444;display:none;margin:10px 0;">Please complete the CAPTCHA.</div>
                 <div class="form-group text-center">
-                  <button type="submit" class="interactive-btn form-btn">TRANSMIT DATA</button>
+                  <div class="form-group text-center">
+                    <button type="submit" class="form-btn">
+                      <div class="sound-icon">
+                        <div class="sound-wave"></div>
+                        <div class="sound-wave"></div>
+                        <div class="sound-wave"></div>
+                      </div>
+                      <span class="sound-label">TRANSMIT DATA</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>
           </div>
         </div>
-        
-        <div class="crt-overlay"></div>
-        <div class="crt-scanline"></div>
       </div>
     </div>
   </section>

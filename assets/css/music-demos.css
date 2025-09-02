@@ -52,16 +52,14 @@
         filter: contrast(1.2) brightness(1.1);
       }
       
+      /* No CRT overlay for Apple Music frames */
       .apple-music-frame .crt-overlay {
-        opacity: 0.5;
-        mix-blend-mode: screen;
-        z-index: 3;
-        pointer-events: none;
+        display: none;
       }
       
+      /* No scanlines for Apple Music frames */
       .apple-music-frame .crt-scanline {
-        opacity: 0.2;
-        animation: scanline 6s linear infinite;
+        display: none;
       }
       
       .apple-music-frame.featured {
@@ -85,9 +83,14 @@
         box-shadow: 0 0 20px rgba(170, 170, 170, 0.3);
       }
       
+      /* No CRT overlay for featured Apple Music frames */
       .apple-music-frame.featured .crt-overlay {
-        opacity: 0.6;
-        animation: pulse-overlay 3s infinite alternate;
+        display: none;
+      }
+      
+      /* No scanlines for featured Apple Music frames */
+      .apple-music-frame.featured .crt-scanline {
+        display: none;
       }
       
       @keyframes pulse-overlay {

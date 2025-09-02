@@ -361,9 +361,9 @@
 }
 
 /* Add some CRT effects */
+/* No CRT overlay for contact form */
 .contact-frame .crt-overlay {
-  opacity: 0.4;
-  mix-blend-mode: screen;
+  display: none;
 }
 
 .contact-frame .crt-scanline {
@@ -420,5 +420,5 @@
   display: none;
 }
 #contact-form.turnstile-valid .form-btn {
-  display: inline-block;
+  display: flex;
 }
