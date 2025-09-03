@@ -13,6 +13,7 @@
       "'unsafe-eval'", 
       "https://cdn.xperia.pt",
       "https://embed.music.apple.com",
+      "https://is1-ssl.mzstatic.com",
       "https://api.web3forms.com",
       "https://static.cloudflareinsights.com",
       "https://app.rybbit.io",
@@ -32,7 +33,6 @@
     ],
     'img-src': [
       "'self'", 
-      "https://media.xperia.pt",
       "https://cdn.xperia.pt",
       "data:"
     ],
@@ -43,6 +43,7 @@
     ],
     'frame-src': [
       "https://embed.music.apple.com",
+      "https://is1-ssl.mzstatic.com",
       "https://app.rybbit.io",
       "https://challenges.cloudflare.com"
     ],
