@@ -18,7 +18,7 @@
       "https://static.cloudflareinsights.com",
       "https://app.rybbit.io",
       "https://www.google.com",
-      "https://stats.g.doubleclick.net",
+      "https://stats.g.doubleclick.net/g/",
       "https://challenges.cloudflare.com",
       "https://*.cloudflarechallenge.com",
       "https://cdn-cgi.challenge-platform.cloudflare.com",
