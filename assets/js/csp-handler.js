@@ -14,6 +14,7 @@
       "https://cdn.xperia.pt",
       "https://embed.music.apple.com",
       "https://is1-ssl.mzstatic.com",
+      "https://audio-ssl.itunes.apple.com",
       "https://api.web3forms.com",
       "https://static.cloudflareinsights.com",
       "https://app.rybbit.io",
