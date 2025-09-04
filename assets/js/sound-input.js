@@ -8,7 +8,7 @@
       if (this.classList.contains('active')) {
         // Start background audio
         if (!audioPlayer) {
-          audioPlayer = new Audio('https://cdn.xperia.pt/bitkillmusic.com/demo2.m4a');
+          audioPlayer = new Audio('https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/63/bb/69/63bb69f8-2673-dcb0-f654-e067369c3c3e/mzaf_6808948158192795690.plus.aac.ep.m4a');
           audioPlayer.loop = true;
           audioPlayer.volume = 0.5; // Start at half volume
         }
@@ -56,4 +56,5 @@
         soundToggle.classList.remove('active');
         soundToggle.querySelector('.sound-label').textContent = 'ACTIVATE SOUND';
       }
+
     });
