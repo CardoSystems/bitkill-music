@@ -45,6 +45,7 @@
     'frame-src': [
       "https://embed.music.apple.com",
       "https://is1-ssl.mzstatic.com",
+      "https://audio-ssl.itunes.apple.com",
       "https://app.rybbit.io",
       "https://challenges.cloudflare.com"
     ],
@@ -60,7 +61,8 @@
     ],
     'media-src': [
       "'self'", 
-      "https://cdn.xperia.pt"
+      "https://cdn.xperia.pt",
+      "https://audio-ssl.itunes.apple.com"
     ]
   };
   
