@@ -2,7 +2,7 @@
 
 A monochrome-themed progressive web application for electronic music producer BitKill, featuring interactive audio visualization, real-time glitch effects, and offline capabilities.
 
-![BitKill Music](favicon.png)
+![BitKill Music](/icons/logo.png)
 
 ## Technical Architecture Overview
 
@@ -328,3 +328,4 @@ All rights reserved. The code, design, and content are proprietary to BitKill.
 ## Technical Contact
 
 For website technical issues: bitkill@ipv7.pt
+
