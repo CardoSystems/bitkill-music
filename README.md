@@ -234,14 +234,6 @@ analyser.getByteFrequencyData(dataArray);
   - Android Chrome 90+
   - Samsung Internet 14+
 
-## Development and Deployment
-
-### Development Environment
-
-1. Clone repository
-2. Serve via local development server (e.g., UniServerZ)
-3. Test with various browser DevTools (Device Mode, Lighthouse, etc.)
-
 
 ## License
 
