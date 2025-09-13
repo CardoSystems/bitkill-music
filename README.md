@@ -123,35 +123,7 @@ for (let i = 0; i < particleCount * 3; i += 3) {
 }
 ```
 
-### 4. Progressive Web App Implementation
 
-The service worker implements a sophisticated caching strategy with three distinct cache stores:
-
-```javascript
-// Service worker cache configuration
-const CACHE_NAME = 'bitkill-cache-v1';         // Core assets
-const MEDIA_CACHE_NAME = 'bitkill-media-cache-v1'; // Media files
-const API_CACHE_NAME = 'bitkill-api-cache-v1';     // API responses
-```
-
-- **Core Assets Cache**: Cache-first strategy for HTML, CSS, JS with network fallback
-- **Media Cache**: Stale-while-revalidate strategy for audio/video/images
-- **API Cache**: Network-first strategy with timeout fallback to cached responses
-
-The service worker also implements:
-- Content-specific caching strategies based on MIME types and URL patterns
-- Background synchronization for media updates
-- Custom offline fallback page with minimal styling
-- Cache cleanup on service worker activation
-
-### 5. Security Implementation
-
-The application implements several security best practices:
-
-- **Content Security Policy**: Strict CSP to prevent XSS attacks
-```html
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.xperia.pt https://media.xperia.pt https://embed.music.apple.com https://api.web3forms.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.xperia.pt; img-src 'self' https://media.xperia.pt data:; font-src 'self' https://fonts.gstatic.com; frame-src https://embed.music.apple.com; connect-src 'self' https://api.web3forms.com https://cloudflareinsights.com; media-src 'self' https://media.xperia.pt;">
-```
 
 - **HSTS Implementation**: HTTP Strict Transport Security enforcement
 - **Form Security**: Honeypot fields to prevent spam submissions
@@ -249,49 +221,6 @@ gainNode.connect(audioCtx.destination);
 analyser.getByteFrequencyData(dataArray);
 ```
 
-### Service Worker Caching Strategy
-
-The service worker implements a sophisticated multi-tiered caching approach:
-
-```javascript
-// Network-first with timeout fallback
-function networkFirstWithTimeout(request, timeoutMs) {
-  return new Promise(resolve => {
-    // Set timeout for network request
-    const timeoutId = setTimeout(() => {
-      caches.match(request).then(cachedResponse => {
-        if (cachedResponse) {
-          resolve(cachedResponse);
-        }
-      });
-    }, timeoutMs);
-    
-    // Attempt network request
-    fetch(request)
-      .then(response => {
-        clearTimeout(timeoutId);
-        const responseToCache = response.clone();
-        caches.open(API_CACHE_NAME).then(cache => {
-          cache.put(request, responseToCache);
-        });
-        resolve(response);
-      })
-      .catch(error => {
-        clearTimeout(timeoutId);
-        // Fallback to cache on network failure
-        // ...error handling
-      });
-  });
-}
-```
-
-### Content Security Policy
-
-The site implements a strict CSP that:
-- Restricts script execution to specific domains
-- Limits style sources to prevent CSS-based attacks
-- Controls frame sources to prevent clickjacking
-- Restricts media sources to trusted domains
 
 ## Browser Compatibility
 
@@ -313,13 +242,6 @@ The site implements a strict CSP that:
 2. Serve via local development server (e.g., UniServerZ)
 3. Test with various browser DevTools (Device Mode, Lighthouse, etc.)
 
-### Production Deployment
-
-1. Implement asset minification and bundling
-2. Enable HTTP/2 for parallel asset loading
-3. Configure proper MIME types and caching headers
-4. Enable HTTPS with TLS 1.3
-5. Register service worker for PWA functionality
 
 ## License
 
