@@ -155,17 +155,12 @@ function typeTerminal() {
    - Limited redraw regions for glitch effects
    - Optimized animation loops with conditional rendering
 
-2. **Service Worker**:
-   - Strategic caching based on content type
-   - Timeout-based fallbacks for network requests
-   - Background syncing for media resources
-
-3. **Asset Loading**:
+2. **Asset Loading**:
    - Critical CSS inlined in head
    - Non-critical resources loaded asynchronously
    - Media preloading for key visual elements
 
-4. **Animation Performance**:
+3. **Animation Performance**:
    - GPU-accelerated animations via transform properties
    - GSAP timeline optimization for animation sequences
    - Throttled event handlers for mouse interactions
@@ -175,8 +170,8 @@ function typeTerminal() {
 ```
 /
 ├── index.html              # Main application entry point
-├── offline.html            # Offline fallback page
-├── service-worker.js       # PWA service worker implementation
+├─
+├── sw.js       # PWA service worker implementation
 ├── sitemap.xml             # XML sitemap for search engines
 ├── robots.txt              # Robots crawl instructions
 ├── assets/
