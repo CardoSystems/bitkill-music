@@ -1,21 +1,3 @@
-/**
- * Advanced CRT Display Emulator v2.0 - Production Ready
- * Professional CRT effect library with smart randomization
- * 
- * Features:
- * - 🎲 Smart randomization system that creates unique experiences on each load
- * - 🧠 Adaptive performance optimization based on device capabilities
- * - 📱 Battery and device awareness for mobile optimization
- * - 🎨 Authentic phosphor decay simulation with multiple color modes
- * - 📺 Multiple display types (TV, Monitor, Oscilloscope, Terminal)
- * - 🌈 Advanced visual effects (chromatic aberration, curvature, interference)
- * - ⚡ Performance monitoring with automatic quality adjustment
- * - 🎯 Theme detection and smart defaults
- * 
- * @author CRT Effects Library
- * @version 2.0.0
- * @license MIT
- */
 
 class AdvancedCRTInjector {
     constructor(options = {}) {
