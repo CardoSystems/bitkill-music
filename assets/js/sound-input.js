@@ -8,7 +8,7 @@
       if (this.classList.contains('active')) {
         // Start background audio
         if (!audioPlayer) {
-          audioPlayer = new Audio('https://cdn.xperia.pt/bitkillmusic.com/demo2.m4a');
+          audioPlayer = new Audio('https://cdn.xperia.pt/bitkillmusic.com/demo1.m4a');
           audioPlayer.loop = true;
           audioPlayer.volume = 0.5; // Start at half volume
         }
