@@ -7,7 +7,7 @@
   "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#00ff99",
-  "categories": ["music", "entertainment"],
+  "categories": ["music", "entertainment", "eletronicmusic"],
   "lang": "en-US",
   "dir": "ltr",
   "scope": "/",
