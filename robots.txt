@@ -1,6 +1,11 @@
 # BitKill Music Website Robots.txt
-# Last updated: August 2, 2025
+# Last updated: March 21, 2026
 
+# Give Googlebot full access so it can render JavaScript
+User-agent: Googlebot
+Allow: /
+
+# Rules for all other bots
 User-agent: *
 Allow: /
 Disallow: /assets/js/
