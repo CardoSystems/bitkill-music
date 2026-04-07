@@ -159,7 +159,7 @@
     
     /* Video-specific CRT overlay - only applied to video containers */
     .crt-video-overlay {
-      background: url('https://cdn.xperia.pt/bitkillmusic.com/crt.png') center/cover no-repeat;
+      background: url('https://cdn.bitkillmusic.com/bitkillmusic.com/crt.png') center/cover no-repeat;
       opacity: 0.55;
     }
     
