@@ -11,7 +11,7 @@
       "'self'", 
       "'unsafe-inline'", 
       "'unsafe-eval'", 
-      "https://cdn.xperia.pt",
+      "https://cdn.bitkillmusic.com",
       "https://embed.music.apple.com",
       "https://is1-ssl.mzstatic.com",
       "https://audio-ssl.itunes.apple.com",
@@ -30,11 +30,11 @@
       "'unsafe-inline'", 
       "https://api.fonts.coollabs.io",
       "https://cdn.fonts.coollabs.io",
-      "https://cdn.xperia.pt"
+      "https://cdn.bitkillmusic.com"
     ],
     'img-src': [
       "'self'", 
-      "https://cdn.xperia.pt",
+      "https://cdn.bitkillmusic.com",
       "data:"
     ],
     'font-src': [
@@ -61,7 +61,7 @@
     ],
     'media-src': [
       "'self'", 
-      "https://cdn.xperia.pt",
+      "https://cdn.bitkillmusic.com",
       "https://audio-ssl.itunes.apple.com"
     ]
   };
